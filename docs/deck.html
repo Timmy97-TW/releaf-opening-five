@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Deck · ReLEAF Opening Five</title>
+<meta name="description" content="Six slides and 4 minutes 30 for the GEMS Taiwan five-minute team update. Every figure from the frozen wiki.">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<link rel="stylesheet" href="assets/css/deck.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 20c0-8 5.5-14.5 16-15.5C19.5 14 14 20 4 20Z' fill='%2323684a'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="hero wrap" style="padding-bottom:1.25rem">
+  <p class="eyebrow" data-en="The demo deck" data-zh="示範投影片"></p>
+  <h1 data-en="Six slides. Four minutes twenty." data-zh="六張投影片。四分二十秒。"></h1>
+  <p class="lede" style="max-width:62ch;margin-top:1rem"
+     data-en="Arrow keys move, Esc opens the overview, T starts the clock, F goes fullscreen. The note under each slide is what to say; the orange line is the trap on that slide. Rehearse with the clock running and the notes covered."
+     data-zh="方向鍵換頁，Esc 開啟總覽，T 開始計時，F 進入全螢幕。每張投影片下方是要說的話；橘色那行是這張的陷阱。練習時請開著計時器、把逐字稿遮住。"></p>
+</header>
+
+<div class="stage" id="stage">
+  <div class="rail" id="rail" role="tablist" aria-label="slides"></div>
+  <div class="frame" id="frame"><div class="canvas" id="canvas"></div></div>
+  <div class="deckbar no-print">
+    <button class="btn btn-ghost btn-sm" id="prev" data-en="← Back" data-zh="← 上一張"></button>
+    <button class="btn btn-sm" id="next" data-en="Next →" data-zh="下一張 →"></button>
+    <button class="btn btn-ghost btn-sm" id="ovb" data-en="Overview" data-zh="總覽"></button>
+    <span class="spacer"></span>
+    <span class="tc" id="tc">0:00 / 4:20</span>
+    <button class="btn btn-accent btn-sm" id="run" data-en="Start the clock" data-zh="開始計時"></button>
+    <button class="btn btn-ghost btn-sm" id="rst" data-en="Reset" data-zh="歸零"></button>
+    <button class="btn btn-ghost btn-sm" id="fs" data-en="Fullscreen" data-zh="全螢幕"></button>
+  </div>
+  <div class="notes" id="notes"></div>
+</div>
+
+<section class="wrap narrow">
+  <div class="sec-head">
+    <h2 data-en="How this deck is built" data-zh="這份投影片的設計邏輯"></h2>
+    <p data-en="So you can rebuild it in Keynote or Slides without losing the argument."
+       data-zh="這樣你們在 Keynote 或 Google Slides 重做時，不會把論證弄丟。"></p>
+  </div>
+  <div class="rules" id="howrules"></div>
+  <p class="note note-a" style="margin-top:1.5rem"
+     data-en="The six layouts are specified on The Plan, with the exact figure each slide uses and why that figure and not a neighbouring one."
+     data-zh="六種版面的規格寫在「整體計畫」頁，包含每張投影片用哪一張圖、以及為什麼是那張而不是隔壁那張。"></p>
+</section>
+
+<script src="assets/js/site.js"></script>
+<script src="data/deck.js"></script>
+<script src="data/content.js"></script>
+<script src="assets/js/deck.js"></script>
+<script>
+(function () {
+  function draw() {
+    var h = '';
+    for (var i = 0; i < CONTENT.deckRules.length; i++) {
+      var r = CONTENT.deckRules[i];
+      h += '<div class="rule"><h3>' + Site.esc(Site.t(r, 'head')) + '</h3><p>' +
+           Site.esc(Site.t(r, 'body')) + '</p></div>';
+    }
+    document.getElementById('howrules').innerHTML = h;
+  }
+  Site.onLang(draw);
+  document.addEventListener('DOMContentLoaded', draw);
+})();
+</script>
+</body>
+</html>

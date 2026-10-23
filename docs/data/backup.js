@@ -1,0 +1,146 @@
+/* Backup slides that are not a wiki figure, and the question-to-slide map.
+ *
+ * Numbered from 30 so they never collide with the figure-backed backups in
+ * figures.js, which keep the slide numbers 11 to 26. Build these four as plain
+ * type-only slides: a heading, the numbers, and the sentence to say.
+ *
+ * Slides 30 and 31 are the two strongest things the team has that a judge
+ * cannot find on the wiki. In a session whose brief invites "progress since the
+ * Wiki Freeze", off-wiki work is worth more than anything already published,
+ * so these are the first two to offer if a gap opens. */
+var EXTRA = [
+
+{
+  n: 30,
+  title_en: 'ACC is itself chromogenic, so the standard assay underreads by about a third',
+  title_zh: 'ACC 本身就會顯色，所以標準分析法會低估約三分之一',
+  when_en: 'Offer this if any judge asks about assay development, measurement contribution, or what another team could reuse. It is the single most transferable result the team produced and it is not on the wiki.',
+  when_zh: '只要有評審問到分析方法開發、量測貢獻，或「別的隊伍可以沿用什麼」，就主動提出這一張。這是整個隊伍產出中最能被別人沿用的結果，而且它不在 wiki 上。',
+  body_en: 'Standard curves run with and without 2 mM ACC: the intercept rises from 0.068 to 0.418. That 0.350 corresponds to 669 µM of apparent ammonium, so ACC reads as roughly 30% as chromogenic as ammonium itself, and the slope is suppressed by 9.4%. The consequence is blunt: a plain ammonium chloride calibration underestimates ACC deaminase product by about 34%. Any team measuring this enzyme by the Berthelot method is systematically wrong, and this says by how much. Two independent estimates, 33.5% and 28.1%, agree.',
+  body_zh: '在有與沒有 2 mM ACC 兩種條件下做標準曲線：截距從 0.068 升到 0.418。這 0.350 相當於 669 µM 的表觀銨離子，也就是說 ACC 的顯色能力約為銨離子本身的 30%，同時斜率被壓低 9.4%。結論很直接：用普通氯化銨標準曲線，會把 ACC 去胺酶的產物低估約 34%。任何用 Berthelot 法量這個酵素的隊伍都系統性地量錯了，而這份資料說出了錯多少。兩個獨立估計值 33.5% 與 28.1% 互相吻合。',
+  say_en: '&ldquo;There is one result we would like to show you that is not on the wiki, because the chapter was cut before the freeze. We found that ACC, the substrate, is itself chromogenic in the Berthelot assay, at about thirty per cent of ammonium. That means a plain ammonium calibration underreads ACC deaminase product by about a third. We measured it twice, by two independent routes, and got the same answer.&rdquo;',
+  say_zh: '「有一個結果我們想給各位看，但它不在 wiki 上，因為那一章在凍結之前被刪掉了。我們發現 ACC 這個基質在 Berthelot 分析中本身就會顯色，大約是銨離子的三成。也就是說，用純銨離子標準曲線會把 ACC 去胺酶的產物低估大約三分之一。我們用兩條獨立的路徑量了兩次，得到同一個答案。」',
+  limit_en: 'Two usable ACC levels, one plate, n not recorded. Say that in the same breath, and say that the two independent estimates agree.',
+  limit_zh: '只有兩個可用的 ACC 濃度、單一盤、n 未記錄。請在同一口氣裡講出來，並且說兩個獨立估計值彼此吻合。'
+},
+{
+  n: 31,
+  title_en: 'Eleven algorithms, eight predictions, five of them wrong',
+  title_zh: '十一個演算法、八項預測，其中五項錯了',
+  when_en: 'Offer this if a judge asks how you chose your signal processing, or what rigour means for a student-built instrument. It is the argument behind slide 4, and it is stronger than slide 4 if the judge is a measurement judge.',
+  when_zh: '如果評審問你們怎麼選訊號處理方法，或是「學生自製儀器的嚴謹性」是什麼意思，就提出這一張。它是第 4 張背後的論據，而且如果對方是量測類評審，它比第 4 張更有力。',
+  body_en: 'Before the first calibration measurement, eleven algorithms (four shipped, seven purpose-built as controls), five metrics, eight quantitative predictions, a selection rule and the exclusion criteria were committed to the repository. The results were then reported including the five predictions that failed. The one that failed hardest was the team\'s own favourite: the "upper" estimator was predicted to halve the bubble scatter and did not, 0.77 against 0.78 standard deviation on the first build, because a bubble brightens one build and darkens the other. In clean flow the largest gap between any two of eight estimators was 0.0039 OD, against August residual scatter of 0.024, so the choice of estimator is worth less than a fifth of the noise.',
+  body_zh: '在第一次校正量測之前，十一個演算法（四個是現成的、七個是為對照而寫的）、五個指標、八項定量預測，連同選擇規則與排除標準，都已提交到版本庫。結果公布時連同失敗的五項預測一起公布。失敗得最徹底的是團隊自己最看好的那一項：原本預測「upper」估計量會把氣泡造成的離散減半，結果沒有，第一版的標準差是 0.77 對 0.78，因為氣泡會讓一個版本變亮、讓另一個版本變暗。在乾淨流動下，八個估計量中任兩者的最大差距是 0.0039 OD，而八月的殘差離散是 0.024，所以選哪個估計量的影響不到雜訊的五分之一。',
+  say_en: '&ldquo;We wanted to know whether our choice of signal processing was a real decision or a preference. So before the first calibration measurement we committed eleven algorithms, eight numerical predictions and the selection rule to the repository. Five of the eight predictions were wrong, including the one we were most confident about, and they are published alongside the three that were right. The useful finding is negative: in clean flow, the choice of estimator matters less than a fifth of the noise. What matters is the gating.&rdquo;',
+  say_zh: '「我們想知道我們選的訊號處理方法，到底是一個真正的決定，還是一種偏好。所以在第一次校正量測之前，我們把十一個演算法、八項數值預測和選擇規則提交到版本庫。八項預測裡有五項是錯的，包括我們最有信心的那一項，而它們和三項正確的一起公開。有用的發現是個否定的結論：在乾淨流動下，選哪個估計量的影響不到雜訊的五分之一。真正重要的是那道閘。」',
+  limit_en: 'This is instrument validation, not biology. Do not let it drift into a claim about cell counts.',
+  limit_zh: '這是儀器驗證，不是生物學。不要讓它漂移成關於細胞數的主張。'
+},
+{
+  n: 32,
+  title_en: 'The published codon rule failed on one gene in four, so we folded 50,000 variants instead',
+  title_zh: '已發表的密碼子規則在四個基因裡有一個失敗，所以我們改折疊五萬個變體',
+  when_en: 'Offer this for a question about the dry lab, design rationale, or "did you test the method you used?". Not on the wiki as a control, only as the resulting tables.',
+  when_zh: '面對乾實驗、設計理由，或「你們有測試自己用的方法嗎？」這類問題時提出。這個對照組不在 wiki 上，wiki 只有最後的表格。',
+  body_en: 'A greedy low-GC control was run against four genes as the published heuristic prescribes. Minimum free energy moved in the intended direction for three: BoPep4 from −43.20 to −48.80, ACCD from −42.10 to −48.70, AmilCP from −54.20 to −45.32. LEA14 went the wrong way, from −52.60 to −48.60, with its start-region unpaired probability falling from 0.512 to 0.505. One of four made worse by the rule. That failure is why the team folded about 50,000 synonymous variants per construct instead, reaching unpaired probabilities of 0.911 to 0.995 at the cost of codon adaptation index dropping to 0.56 to 0.78.',
+  body_zh: '依照已發表的經驗法則，用貪婪式低 GC 作為對照跑了四個基因。最小自由能有三個往預期方向移動：BoPep4 從 −43.20 到 −48.80、ACCD 從 −42.10 到 −48.70、AmilCP 從 −54.20 到 −45.32。LEA14 走錯了方向，從 −52.60 到 −48.60，起始區未配對機率從 0.512 掉到 0.505。四個裡有一個被這條規則弄得更糟。正是這個失敗，讓團隊改為每個構築折疊約五萬個同義變體，把未配對機率推到 0.911 到 0.995，代價是密碼子適應指數掉到 0.56 到 0.78。',
+  say_en: '&ldquo;We did not assume the published recoding heuristic worked. We ran it as a control on four genes, and on one of the four it made the structure worse rather than better. That is why we folded about fifty thousand synonymous variants per construct instead of following the rule.&rdquo;',
+  say_zh: '「我們沒有假設已發表的重新編碼經驗法則有效。我們把它當成對照，在四個基因上跑過一次，而四個裡有一個被它弄得更糟、不是更好。這就是為什麼我們改成每個構築折疊大約五萬個同義變體，而不是照那條規則走。」',
+  limit_en: 'In silico throughout. The wet-lab outcome was equivocal: codon-optimised ACCD came in below its own wild type.',
+  limit_zh: '全部是電腦模擬。濕實驗結果並不明確：密碼子最佳化的 ACCD 低於它自己的野生型。'
+},
+{
+  n: 33,
+  title_en: 'How WB800 was actually transformed',
+  title_zh: 'WB800 究竟是怎麼轉形成功的',
+  when_en: 'Offer this for a cloning or reproducibility question, especially "how did you get a 10 kb construct into Bacillus?". The protocol survives on Engineering but was cut from Measurement, where a reader would look for it.',
+  when_zh: '面對選殖或可重現性的問題時提出，特別是「你們怎麼把 10 kb 的構築放進 Bacillus 的？」。這份流程存活在 Engineering 頁，但從讀者會去找的 Measurement 頁被刪掉了。',
+  body_en: 'Two strain-specific protocols. B. subtilis 168: harvest at OD600 0.85 to 0.95, two washes, 300 Ω and 25 µF. WB800: harvest at OD600 2.2, four washes in electroporation buffer plus 1.5 M trehalose, one-fortieth resuspension, 250 Ω and 25 µF. The 168 protocol was tested on WB800 and did not work, which is what forced the rebuild. The payoff is the 10 kb Level 2 light circuit recovered in WB800 at 370 colonies at 2.3 kV, against at best 21 colonies in strain 168. The optimum is construct-specific: 2.1 kV for constitutive ACCD, 2.3 kV for the CcaSR circuit, 1.1 kV in a 0.1 cm cuvette for BoPep4.',
+  body_zh: '兩套株別專屬的流程。B. subtilis 168：在 OD600 0.85 到 0.95 收菌、洗兩次、300 Ω 與 25 µF。WB800：在 OD600 2.2 收菌，在電穿孔緩衝液加 1.5 M 海藻糖中洗四次、1/40 重懸、250 Ω 與 25 µF。168 的流程在 WB800 上試過但不成功，這才逼出了重建。成果是 10 kb 的 Level 2 光線路在 WB800 中於 2.3 kV 回收到 370 個菌落，而在 168 株最多只有 21 個。最佳條件因構築而異：組成型 ACCD 用 2.1 kV、CcaSR 線路用 2.3 kV、BoPep4 在 0.1 cm 比色管中用 1.1 kV。',
+  say_en: '&ldquo;WB800 is a hard strain to transform and the protocol that worked for 168 did not work on it. We rebuilt the preparation: harvest much later, at optical density two point two, four washes in trehalose instead of two in plain buffer, and a lower resistance. That is what let us recover a ten-kilobase construct in the protease-deficient strain.&rdquo;',
+  say_zh: '「WB800 是一株不好轉形的菌，而對 168 有效的流程在它身上沒用。我們重建了製備方式：收菌時間延後很多、在光密度 2.2 收，用海藻糖洗四次而不是用普通緩衝液洗兩次，電阻也調低。這才讓我們在這株缺乏蛋白酶的菌裡拿到十千鹼基對的構築。」',
+  limit_en: 'Colony counts on plain LB are not transformation results. Lead with the gels: twenty-three of twenty-three transformants carried the band.',
+  limit_zh: '塗在普通 LB 上的菌落數不是轉形結果。請用膠圖當主打：二十三個轉形株全部帶有正確片段。'
+}
+
+];
+
+/* Which question goes to which slide, and who answers it.
+ * Built from the questions the wiki's own open numbers invite. */
+var QMAP = [
+  { q_en: 'How do you know you made working enzyme and not host background?',
+    q_zh: '你們怎麼知道做出來的是有功能的酵素，而不是宿主背景值？',
+    to: 'Slide 2', who: 'Chloe',
+    a_en: 'Specific activity in a cell-free compartment. Do not reach for the plate assays: the plasmid-free control reads in the same range.',
+    a_zh: '無細胞隔室中的比活性。不要去拿微量盤的數據：無質體對照組落在同一範圍。' },
+  { q_en: 'Does the light switch work?',
+    q_zh: '光開關有效嗎？',
+    to: '19', who: 'Chloe',
+    a_en: 'No, not demonstrated. Green is 14 times red at 13 hours and the order inverts by 16. Say both halves and say our own verdict.',
+    a_zh: '沒有，尚未被證明。13 小時綠光是紅光的 14 倍，到 16 小時順序反轉。兩半都要講，而且要講出我們自己的結論。' },
+  { q_en: 'Is the containment validated?',
+    q_zh: '圍阻有經過驗證嗎？',
+    to: 'Slide 5', who: 'Jacquelyn',
+    a_en: 'Preliminary evidence of retention, not a validated efficiency. Two plates, no replicates, no log reduction measured, detection limit not recorded.',
+    a_zh: '是圍阻的初步證據，不是已驗證的效率。兩盤、無重複、未測對數去除率、偵測極限未記錄。' },
+  { q_en: 'How did you choose your signal processing?',
+    q_zh: '你們怎麼選訊號處理方法的？',
+    to: '31', who: 'Jacquelyn',
+    a_en: 'Pre-registered eleven algorithms and eight predictions. Five predictions failed and are published. The estimator matters less than the gate.',
+    a_zh: '事先登錄了十一個演算法與八項預測。五項預測失敗，而且都已公開。選哪個估計量的影響小於那道閘。' },
+  { q_en: 'Can anyone else build your hardware?',
+    q_zh: '別人能做出你們的硬體嗎？',
+    to: 'Slide 5', who: 'Jacquelyn',
+    a_en: 'Three classmates outside the team built the simplified photometer from the guide in two days and returned three corrections. Then say the licence position honestly.',
+    a_zh: '三位隊外同學照手冊在兩天內做出了簡化版光度計，並回報三處修正。接著誠實說明授權條款的現況。' },
+  { q_en: 'Which human practices input changed your design most?',
+    q_zh: '哪一項人文實踐意見對你們的設計改變最大？',
+    to: 'Slide 1, then 22', who: 'Jacquelyn',
+    a_en: 'April: kill switch to physical containment, from two independent sources within a week. That is why there is a membrane at all. Then Prof. Chang, twice, with a failure in between.',
+    a_zh: '四月：從自殺開關改為物理圍阻，一週內有兩個獨立來源。這就是為什麼會有一層膜。接著是張教授，兩次拜訪，中間夾著一個失敗。' },
+  { q_en: 'What is the strongest plant evidence?',
+    q_zh: '最強的植物證據是什麼？',
+    to: 'Slide 3', who: 'Abigail',
+    a_en: 'Hydroponic BoPep4 at 1/40 against a strain-matched control, as proof of concept. Never the 70% number, never trehalose.',
+    a_zh: '水耕 1/40 BoPep4 對照同株培養液，當成概念驗證。絕對不要用 70% 那個數字，也不要用海藻糖。' },
+  { q_en: 'Why forecast stress instead of spraying on a schedule?',
+    q_zh: '為什麼要預報逆境，而不是按時程噴藥？',
+    to: 'Slide 3', who: 'Abigail',
+    a_en: 'Because in soil under heat, applying after the stress was worse than not applying, in both trials. And a farmer told us the same thing about over-intervening.',
+    a_zh: '因為在土耕熱逆境下，逆境之後才施用比完全不施用更糟，兩次試驗皆然。而且有一位農友也跟我們說過同樣的「介入過度」的道理。' },
+  { q_en: 'Is the system end to end?',
+    q_zh: '這個系統是端到端的嗎？',
+    to: 'Slide 6', who: 'Jacquelyn',
+    a_en: 'No. The forecast has never driven a light, and no plant run is tied to an activity assay of the sprayed batch. Name both before being asked twice.',
+    a_zh: '不是。預報從未驅動過光源，而且沒有任何植物試驗能連結到噴灑批次的活性測定。在被問第二次之前就把兩者講出來。' },
+  { q_en: 'What does a farmer pay, and when does it pay back?',
+    q_zh: '農友要付多少，什麼時候回本？',
+    to: '25', who: 'Jacquelyn',
+    a_en: 'About US$5550 in year one, about US$90 a year after. Then name the disagreement: our own pages give paybacks that differ by more than an order of magnitude, and the dose has never been tested on a crop.',
+    a_zh: '第一年約 5550 美元，之後每年約 90 美元。接著講出那個分歧：我們自己的頁面給出的回收期相差超過一個數量級，而那個劑量從未在作物上測試過。' },
+  { q_en: 'Could an organic farm use this?',
+    q_zh: '有機農場可以用這個嗎？',
+    to: 'no slide', who: 'Jacquelyn',
+    a_en: 'No. Taiwan\'s Organic Agriculture Promotion Act excludes any product of a GMO whatever the containment, which closes about 3.7% of cultivated land to us. Answer without hedging.',
+    a_zh: '不行。台灣《有機農業促進法》把任何基因改造生物的產物排除在外，無論圍阻做得多好，這讓約 3.7% 的耕地對我們關閉。回答時不要含糊。' },
+  { q_en: 'Was the whole construct sequenced?',
+    q_zh: '整個構築有定序嗎？',
+    to: '17, 18', who: 'Chloe',
+    a_en: 'Not end to end. Nine junctions and a double digest at 10,293 bp confirm module order and plasmid length; neither reads the 10 kb between them.',
+    a_zh: '沒有端到端定序。九個接點與 10,293 bp 的雙酶切確認了模組順序與質體長度；但兩者都沒有讀中間那 10 kb。' },
+  { q_en: 'How many parts did you register?',
+    q_zh: '你們登錄了幾個零件？',
+    to: 'no slide', who: 'Chloe',
+    a_en: 'Check the Registry and settle this before the session. The wiki says 35, one is a draft with no BBa number, and the upload pack counts 33.',
+    a_zh: '會談前請查 Registry 把這件事確認下來。Wiki 寫 35、其中一個是沒有 BBa 編號的草稿、上傳包算出 33。' },
+  { q_en: 'What would another team reuse from your project?',
+    q_zh: '別的隊伍可以從你們的專題沿用什麼？',
+    to: '30', who: 'Jacquelyn or Chloe',
+    a_en: 'The ACC chromogenicity correction, and the gating protocol that runs in four working days on any photometer that can log its raw samples.',
+    a_zh: 'ACC 顯色性的修正，以及那套接受閘流程：任何能記錄原始取樣的光度計，四個工作日就能跑完。' },
+  { q_en: 'What is your biggest weakness?',
+    q_zh: '你們最大的弱點是什麼？',
+    to: 'Slide 6', who: 'Jacquelyn',
+    a_en: 'Pick one and commit: no plant run is tied to an activity assay of the material that was actually applied. Then say what would settle it, in one sentence.',
+    a_zh: '選一個，然後站定：沒有任何植物試驗能連結到實際施用材料的活性測定。接著用一句話說明什麼能解決它。' }
+];

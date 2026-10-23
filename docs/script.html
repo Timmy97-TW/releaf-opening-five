@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Script · ReLEAF Opening Five</title>
+<meta name="description" content="The five-minute update word for word, in English and 繁體中文, with per-slide budgets, handover lines and the trap on each slide.">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 20c0-8 5.5-14.5 16-15.5C19.5 14 14 20 4 20Z' fill='%2323684a'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="hero wrap">
+  <p class="eyebrow" data-en="The script" data-zh="逐字稿"></p>
+  <h1 data-en="Word for word, and what not to say." data-zh="逐字稿，以及哪些話不要說。"></h1>
+  <p class="lede" style="max-width:62ch;margin-top:1rem"
+     data-en="This is a script to learn from, not to read from. Reading aloud in a judging session reads as not knowing your own project. Learn the first sentence of each slide exactly, learn the numbers exactly, and let the sentences between them come out differently every time."
+     data-zh="這份逐字稿是用來學的，不是用來念的。在評審會談上照稿念，會被聽成「不熟自己的專題」。請把每張投影片的第一句背到精準、把數字背到精準，中間的句子每次講得不一樣都沒關係。"></p>
+  <div class="btn-row" style="margin-top:1.5rem">
+    <a class="btn btn-ghost" href="deck.html" data-en="Open the deck beside it" data-zh="同時打開投影片"></a>
+    <button class="btn btn-line btn-sm" onclick="window.print()" data-en="Print as a paper script" data-zh="列印成紙本稿"></button>
+  </div>
+  <p class="src" style="margin-top:1rem" id="wordtotal"></p>
+</header>
+
+<section class="wrap narrow" style="padding-top:1rem">
+  <div id="script"></div>
+</section>
+
+<section class="wrap narrow">
+  <div class="sec-head">
+    <h2 data-en="The two handovers" data-zh="兩次交棒"></h2>
+    <p data-en="Say the line, do not announce the handover. The next speaker should already be in position."
+       data-zh="講那句話就好，不要宣布「換人」。下一位講者在那之前就該站好位置。"></p>
+  </div>
+  <div class="rules" id="hands"></div>
+</section>
+
+<section class="wrap narrow">
+  <div class="sec-head">
+    <h2 data-en="If something goes wrong" data-zh="如果出了狀況"></h2>
+  </div>
+  <div class="rules">
+    <div class="rule">
+      <h3 data-en="The deck will not load" data-zh="投影片打不開"></h3>
+      <p data-en="Open the PDF export instead and say nothing about it. If neither works, do slide 1 and slide 6 from memory, name the two results in words, and offer the figures on the laptop screen. Five minutes without slides is survivable. Five minutes of fixing a laptop is not."
+         data-zh="改開 PDF 匯出檔，而且不要解釋。如果兩個都不行，就憑記憶講第 1 張和第 6 張，用講話的方式說出那兩個結果，並提議把圖直接在筆電螢幕上給評審看。沒有投影片的五分鐘還能活。花五分鐘修筆電就不行了。"></p>
+    </div>
+    <div class="rule">
+      <h3 data-en="You are cut off mid-slide" data-zh="講到一半被打斷"></h3>
+      <p data-en="Stop immediately and say: &ldquo;I will stop there. The last slide is the two things we have not joined up yet, and I would rather you had the questions.&rdquo; That sentence converts being cut off into an invitation, and it still delivers slide 6."
+         data-zh="立刻停下來，然後說：「我就講到這裡。最後一張是我們還沒接起來的兩件事，我寧願把時間留給各位的問題。」這句話把「被打斷」轉成「邀請」，而且第 6 張的內容還是送到了。"></p>
+    </div>
+    <div class="rule">
+      <h3 data-en="A judge interrupts with a question during the five minutes" data-zh="五分鐘內評審插話提問"></h3>
+      <p data-en="Answer it in one sentence, then say &ldquo;there is more on that in a moment&rdquo; and carry on. Do not abandon the deck for an early question: the remaining slides are what makes the rest of their questions good ones."
+         data-zh="用一句話回答，然後說「這一點稍後還有更多」，接著繼續。不要因為一個提早的問題就放棄投影片：剩下那幾張，正是讓他們後面的問題變成好問題的東西。"></p>
+    </div>
+    <div class="rule">
+      <h3 data-en="You forget a number" data-zh="忘了某個數字"></h3>
+      <p data-en="Say the shape instead of the number and move on: &ldquo;it held between five and eight through three days&rdquo; is fine without the decimal. Never guess a number in front of four people who have read the wiki. If you need it exactly, it is on the slide behind you."
+         data-zh="講出形狀而不是數字，然後繼續：「它在三天內維持在五到八之間」這樣就夠，不需要小數。絕對不要在四個讀過 wiki 的人面前猜數字。如果真的需要精確值，它就在你背後那張投影片上。"></p>
+    </div>
+  </div>
+</section>
+
+<script src="assets/js/site.js"></script>
+<script src="data/deck.js"></script>
+<script src="data/content.js"></script>
+<script>
+(function () {
+  var S = window.Site;
+
+  function words(s) {
+    var t = String(s).replace(/<[^>]*>/g, ' ');
+    if (S.lang === 'zh') return t.replace(/\s/g, '').length;
+    return t.split(/\s+/).filter(Boolean).length;
+  }
+
+  function draw() {
+    var h = '', total = 0, i;
+    for (i = 0; i < DECK.slides.length; i++) {
+      var s = DECK.slides[i], sp = DECK.speakers[s.speaker];
+      var say = S.t(s, 'say'), w = words(say);
+      total += w;
+      var rate = Math.round(w / (s.budget / 60));
+      h += '<article class="sc">' +
+        '<div class="sc-head"><span class="n">' + (i + 1) + ' / ' + DECK.slides.length + '</span>' +
+        '<h2>' + S.esc(S.t(s, 'title')) + '</h2>' +
+        '<span class="pill pill-a">' + S.esc(S.p(sp.name)) + '</span>' +
+        '<span class="pill pill-line">' + S.clock(s.budget) + '</span></div>' +
+        '<p class="sc-say">' + say + '</p>' +
+        '<p class="sc-words">' + w + (S.lang === 'zh' ? ' 字 · 約每分鐘 ' + rate + ' 字' : ' words · about ' + rate + ' a minute') + '</p>' +
+        '<div class="sc-grid">' +
+          '<div class="sc-box"><h4 data-en="On the slide, in small type" data-zh="投影片上的小字"></h4><p>' +
+            S.esc(S.t(s, 'caveat') || (S.lang === 'zh' ? '這一張沒有小字。' : 'No caveat line on this slide.')) + '</p></div>' +
+          '<div class="sc-box warn"><h4 data-en="The trap on this slide" data-zh="這一張的陷阱"></h4><p>' +
+            S.esc(S.t(s, 'watch')) + '</p></div>' +
+        '</div></article>';
+    }
+    document.getElementById('script').innerHTML = h;
+
+    document.getElementById('wordtotal').textContent = S.lang === 'zh'
+      ? '全文約 ' + total + ' 字，預算 4:30，相當於每分鐘約 ' + Math.round(total / 4.5) + ' 字。'
+      : total + ' words in 4:30, which is about ' + Math.round(total / 4.5) + ' a minute. A comfortable spoken pace is 130 to 150.';
+
+    h = '';
+    for (i = 0; i < CONTENT.speakers.length - 1; i++) {
+      var a = CONTENT.speakers[i], b = CONTENT.speakers[i + 1];
+      h += '<div class="rule"><h3>' + S.esc(a.name) + ' → ' + S.esc(b.name) + '</h3>' +
+        '<p>' + S.esc(S.t(a, 'hand')) + '</p></div>';
+    }
+    document.getElementById('hands').innerHTML = h;
+
+    S.applyStatic(document.body);
+  }
+
+  S.onLang(draw);
+  document.addEventListener('DOMContentLoaded', draw);
+})();
+</script>
+</body>
+</html>

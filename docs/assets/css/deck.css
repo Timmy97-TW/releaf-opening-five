@@ -1,0 +1,212 @@
+/* The deck: 16:9 slides that scale to the viewport, drawn in the wiki's own
+ * type and palette so the five minutes look like the rest of ReLEAF.
+ * One claim per slide. Figures carry the argument; words name it. */
+
+.stage {
+  position: relative;
+  background: var(--paper-2);
+  padding: 1.25rem 20px 0;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+/* The slide is a fixed 1280x720 canvas scaled by a CSS variable, so every
+   font size inside it is in px and lands the same way at any screen size. */
+.frame {
+  width: 100%; max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06), 0 24px 60px rgba(0,0,0,.12);
+}
+.canvas {
+  position: absolute; top: 0; left: 0;
+  width: 1280px; height: 720px;
+  transform-origin: top left;
+  background: #fff;
+  font-size: 16px;
+}
+
+/* ── slide chrome inside the canvas ── */
+.sl { position: absolute; inset: 0; padding: 54px 64px 56px; display: flex; flex-direction: column; }
+.sl-eye {
+  position: absolute; top: 26px; left: 64px; right: 64px;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase;
+  color: var(--faint);
+}
+.sl-eye .who { color: var(--accent); }
+.sl-eye .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--rule); }
+.sl-eye .pg { margin-left: auto; font-family: var(--font-mono); letter-spacing: .04em; font-weight: 500; }
+
+.sl h2 {
+  font-size: 44px; line-height: 1.08; letter-spacing: -.028em; font-weight: 650;
+  color: var(--ink); margin: 0; max-width: 24ch;
+}
+.sl h2.sm { font-size: 36px; max-width: 30ch; }
+.sl .sub {
+  font-size: 19px; line-height: 1.42; color: var(--ink-2); margin: 14px 0 0; max-width: 62ch;
+}
+.sl .foot-note {
+  position: absolute; left: 64px; right: 64px; bottom: 22px;
+  font-size: 13px; color: var(--faint); line-height: 1.4;
+  display: flex; gap: 10px; align-items: baseline;
+}
+.sl .foot-note b { color: var(--amber); font-weight: 600; flex: none; }
+
+html:lang(zh) .sl h2 { font-size: 40px; line-height: 1.22; }
+html:lang(zh) .sl h2.sm { font-size: 33px; }
+html:lang(zh) .sl .sub { font-size: 18px; line-height: 1.62; }
+
+/* ── numbers ── */
+.nums { display: flex; gap: 34px; margin-top: auto; }
+.nums.col { flex-direction: column; gap: 20px; margin-top: 0; }
+.num .v {
+  font-size: 40px; font-weight: 650; letter-spacing: -.03em; line-height: 1;
+  color: var(--accent-deep); font-variant-numeric: tabular-nums;
+}
+.num .v small { font-size: 20px; font-weight: 600; letter-spacing: -.01em; color: var(--accent); }
+.num .l { font-size: 13px; line-height: 1.35; color: var(--muted); margin-top: 7px; max-width: 22ch; }
+.num.sm .v { font-size: 30px; }
+
+/* ── figures ── */
+.figwrap { background: var(--paper-3); border: 1px solid var(--rule-soft); border-radius: 12px; overflow: hidden; }
+.figwrap img { display: block; width: 100%; height: 100%; object-fit: contain; background: #fff; }
+.figwrap.cover img { object-fit: cover; }
+.figcap { font-size: 12px; line-height: 1.4; color: var(--faint); margin-top: 8px; }
+
+/* layout: hero — one line, one wide image.
+   The art band is wider than 16:9, so a cover crop has to lose something.
+   Anchor it low: the bench and the laptop reading are the proof, the ceiling
+   above the whiteboard is not. */
+.ly-hero .art { margin-top: 18px; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.ly-hero .art .figwrap { flex: 1; min-height: 0; }
+.ly-hero .art .figwrap img { object-position: 50% 72%; }
+
+/* layout: split — figure left, rail right */
+.ly-split .body { display: grid; grid-template-columns: 1fr 296px; gap: 32px; margin-top: 20px; flex: 1; min-height: 0; }
+.ly-split .body > div:first-child { display: flex; flex-direction: column; min-height: 0; }
+.ly-split .body > div:first-child .figwrap { flex: 1; min-height: 0; }
+.ly-split .body .num .v { font-size: 34px; }
+.ly-split .body .num .l { font-size: 12.5px; }
+.ly-split .body .nums.col { gap: 16px; }
+
+/* layout: pair — two figures side by side */
+.ly-pair .body { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 20px; flex: 1; min-height: 0; }
+.ly-pair .pane { display: flex; flex-direction: column; min-height: 0; }
+.ly-pair .pane h3 { font-size: 15px; font-weight: 650; color: var(--ink); margin: 0 0 8px; letter-spacing: -.01em; }
+.ly-pair .pane .figwrap { flex: 1; min-height: 0; }
+.ly-pair .mid {
+  position: absolute; left: 50%; top: 58%; transform: translate(-50%,-50%);
+  background: var(--accent); color: #fff; font-size: 13px; font-weight: 650;
+  padding: 5px 12px; border-radius: 999px; white-space: nowrap; z-index: 3;
+  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+}
+
+/* layout: trio — three evidence panels */
+.ly-trio .body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 22px; flex: 1; min-height: 0; }
+.ly-trio .pane { display: flex; flex-direction: column; min-height: 0; }
+.ly-trio .pane .figwrap { flex: 1; min-height: 0; }
+/* equal heading height so the numbers below line up across the three panels */
+.ly-trio .pane h3 { font-size: 14px; font-weight: 650; margin: 0 0 7px; letter-spacing: -.01em; min-height: 2.9em; }
+html:lang(zh) .ly-trio .pane h3 { min-height: 3.4em; }
+.ly-trio .pane .n { font-size: 24px; font-weight: 650; color: var(--accent-deep); letter-spacing: -.02em; margin-top: 8px; font-variant-numeric: tabular-nums; }
+.ly-trio .pane .n small { font-size: 14px; font-weight: 600; color: var(--accent); }
+.ly-trio .pane p { font-size: 12.5px; line-height: 1.4; color: var(--muted); margin: 3px 0 0; }
+
+/* layout: ledger — the closing two-column list */
+.ly-ledger .body { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; margin-top: 30px; flex: 0 0 auto; }
+.ly-ledger .col h3 {
+  font-size: 13px; font-weight: 650; letter-spacing: .07em; text-transform: uppercase;
+  margin: 0 0 14px; color: var(--muted);
+}
+.ly-ledger .col.done h3 { color: var(--accent); }
+.ly-ledger .col.open h3 { color: var(--amber); }
+.ly-ledger li {
+  list-style: none; font-size: 18px; line-height: 1.42; color: var(--ink-2);
+  padding: 0 0 14px 28px; position: relative;
+}
+.ly-ledger li b { color: var(--ink); font-weight: 650; }
+.ly-ledger .done li::before {
+  content: ""; position: absolute; left: 2px; top: 7px; width: 11px; height: 6px;
+  border-left: 2.5px solid var(--accent); border-bottom: 2.5px solid var(--accent);
+  transform: rotate(-45deg);
+}
+.ly-ledger .open li::before {
+  content: ""; position: absolute; left: 3px; top: 6px; width: 9px; height: 9px;
+  border: 2.5px solid var(--amber); border-radius: 50%;
+}
+.ly-ledger ul { margin: 0; padding: 0; }
+html:lang(zh) .ly-ledger li { font-size: 17px; line-height: 1.68; }
+
+/* the closing ask */
+.ask {
+  margin-top: 34px; background: var(--accent-wash); border-radius: 12px;
+  padding: 18px 22px; font-size: 19px; line-height: 1.4; color: var(--accent-deep); font-weight: 600;
+}
+
+/* ── controls under the frame ── */
+.deckbar {
+  width: 100%; max-width: 1280px;
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+  padding: .85rem 0 1.1rem;
+}
+.deckbar .spacer { flex: 1; }
+.deckbar .tc {
+  font-family: var(--font-mono); font-size: .9375rem; font-variant-numeric: tabular-nums;
+  background: #fff; border: 1px solid var(--rule-soft); border-radius: 999px;
+  padding: .36rem .8rem; color: var(--ink);
+}
+.deckbar .tc.over { background: var(--red-wash); color: var(--red); border-color: transparent; }
+.deckbar .tc.warn { background: var(--amber-wash); color: var(--amber); border-color: transparent; }
+
+/* the budget rail: one segment per slide, width proportional to its seconds */
+.rail { width: 100%; max-width: 1280px; display: flex; gap: 3px; margin-bottom: .1rem; }
+.rail button {
+  min-width: 0; height: 7px; border: 0; padding: 0; cursor: pointer;
+  background: var(--rule); border-radius: 999px; transition: background .15s;
+}
+.rail button:hover { background: var(--faint); }
+.rail button[aria-current="true"] { background: var(--accent); }
+.rail button.past { background: var(--accent-wash); }
+
+/* presenter notes */
+.notes {
+  width: 100%; max-width: 1280px; background: #fff; border: 1px solid var(--rule-soft);
+  border-radius: var(--r); padding: 1.1rem 1.25rem; margin-bottom: 1.25rem;
+}
+.notes .who {
+  font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: .5rem;
+}
+.notes .say { font-size: 1.0625rem; line-height: 1.55; color: var(--ink); margin: 0 0 .7rem; }
+.notes .say em { color: var(--accent-deep); font-style: normal; font-weight: 600; }
+.notes .cav { font-size: .875rem; color: var(--amber); margin: 0; }
+.notes .cav b { font-weight: 600; }
+
+/* overview grid */
+.ov { position: fixed; inset: 0; background: rgba(245,245,247,.97); z-index: 90; overflow: auto; padding: 2rem 20px 3rem; }
+.ov .wrap { max-width: 1180px; }
+.ov h2 { margin-bottom: 1.25rem; }
+.ovg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+@media (max-width: 860px) { .ovg { grid-template-columns: repeat(2, 1fr); } }
+.ovc {
+  background: #fff; border: 1px solid var(--rule-soft); border-radius: var(--r);
+  padding: 1rem 1.1rem; text-align: left; cursor: pointer; font: inherit; font-family: var(--font-text);
+}
+.ovc:hover { border-color: var(--accent); }
+.ovc .n { font-family: var(--font-mono); font-size: .6875rem; color: var(--faint); }
+.ovc h3 { font-size: 1rem; margin: .35rem 0 .3rem; letter-spacing: -.015em; }
+.ovc p { font-size: .8125rem; color: var(--muted); margin: 0; }
+.ovc .b { font-size: .75rem; color: var(--accent); font-weight: 600; margin-top: .5rem; }
+
+/* fullscreen: the frame fills the screen, chrome hides */
+.stage:fullscreen { background: #000; padding: 0; justify-content: center; }
+.stage:fullscreen .frame { max-width: none; border-radius: 0; box-shadow: none; width: 100vw; height: 100vh; aspect-ratio: auto; }
+.stage:fullscreen .deckbar, .stage:fullscreen .rail, .stage:fullscreen .notes { display: none; }
+
+@media (max-width: 700px) {
+  .stage { padding: .75rem 12px 0; }
+  .frame { border-radius: 12px; }
+}

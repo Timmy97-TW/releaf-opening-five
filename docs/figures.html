@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figures · ReLEAF Opening Five</title>
+<meta name="description" content="Every figure the five minutes could use, with a verdict: on a slide, in the backup deck, a real option that lost on time, or one that will cost more than it earns.">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 20c0-8 5.5-14.5 16-15.5C19.5 14 14 20 4 20Z' fill='%2323684a'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="hero wrap">
+  <p class="eyebrow" data-en="The figure library" data-zh="圖表庫"></p>
+  <h1 data-en="Which figure, and why not the one next to it." data-zh="用哪一張圖，以及為什麼不用它旁邊那張。"></h1>
+  <p class="lede" style="max-width:62ch;margin-top:1rem" id="lede"></p>
+</header>
+
+<section class="wrap" style="padding-top:1rem">
+  <div class="chips" id="filters" style="margin-bottom:1.5rem"></div>
+  <div class="figs" id="lib"></div>
+  <p class="note" id="empty" hidden
+     data-en="Nothing in this group." data-zh="這個分類裡沒有項目。"></p>
+</section>
+
+<section class="wrap narrow">
+  <div class="sec-head">
+    <h2 data-en="Using these in Keynote or Slides" data-zh="在 Keynote 或 Google Slides 裡使用這些圖"></h2>
+  </div>
+  <div class="rules">
+    <div class="rule">
+      <h3 data-en="Download from the wiki, do not screenshot the deck." data-zh="請從 wiki 下載，不要對投影片截圖。"></h3>
+      <p data-en="Each card links to the file. Right-click and save. A screenshot of a browser slide is at screen resolution and will be soft on a projector, and the SVG charts will be worst of all because they are vector and should stay vector."
+         data-zh="每張卡片都連到原始檔案。右鍵另存。對瀏覽器投影片截圖只有螢幕解析度，投影出來會模糊，而 SVG 圖表最糟，因為它們是向量圖、應該保持向量。"></p>
+    </div>
+    <div class="rule">
+      <h3 data-en="Keep the caption with the figure." data-zh="圖說要跟著圖走。"></h3>
+      <p data-en="The caption on each card is the wiki's own, trimmed to one sentence. Keeping it means a judge comparing your slide against the wiki finds the same words, which is a small thing that buys a lot of trust."
+         data-zh="每張卡片上的圖說都是 wiki 自己的，修剪成一句。保留它的意思是：評審拿你們的投影片和 wiki 對照時，看到的是同一段文字。這是小事，但換到很多信任。"></p>
+    </div>
+    <div class="rule">
+      <h3 data-en="Do not crop a figure to make an effect look bigger." data-zh="不要為了讓效果看起來更大而裁切圖。"></h3>
+      <p data-en="Including cropping an axis. Four judges have read the wiki version. A cropped axis is the single fastest way to turn a presentation into an interrogation, and it is not recoverable inside twenty minutes."
+         data-zh="包括裁切座標軸。四位評審都讀過 wiki 版本。裁切座標軸是把簡報變成審問最快的一條路，而且在二十分鐘內救不回來。"></p>
+    </div>
+  </div>
+</section>
+
+<script src="assets/js/site.js"></script>
+<script src="data/figures.js"></script>
+<script>
+(function () {
+  var S = window.Site;
+  var BASE = 'https://static.igem.wiki/teams/6072/wiki/';
+  var filter = 'all';
+
+  var GROUPS = [
+    { id: 'all',    en: 'All',            zh: '全部' },
+    { id: 'use',    en: 'On a slide',      zh: '在正式投影片上' },
+    { id: 'backup', en: 'Backup deck',     zh: '備用投影片' },
+    { id: 'maybe',  en: 'Lost on time',    zh: '因時間而落選' },
+    { id: 'never',  en: 'Do not use',      zh: '不要使用' }
+  ];
+  var VLBL = {
+    use:    { en: 'On a slide',   zh: '在投影片上',   cls: 'pill-a' },
+    backup: { en: 'Backup',       zh: '備用',         cls: 'pill-b' },
+    maybe:  { en: 'Lost on time', zh: '因時間落選',   cls: 'pill-v' },
+    never:  { en: 'Do not use',   zh: '不要使用',     cls: 'pill-r' }
+  };
+
+  function count(id) {
+    if (id === 'all') return FIGURES.length;
+    var n = 0;
+    for (var i = 0; i < FIGURES.length; i++) if (FIGURES[i].v === id) n++;
+    return n;
+  }
+
+  function drawFilters() {
+    var h = '';
+    for (var i = 0; i < GROUPS.length; i++) {
+      var g = GROUPS[i];
+      h += '<button class="chip" data-g="' + g.id + '" aria-pressed="' + (filter === g.id) + '">' +
+        S.esc(S.p(g)) + '<span class="c">' + count(g.id) + '</span></button>';
+    }
+    document.getElementById('filters').innerHTML = h;
+  }
+
+  function drawLib() {
+    var h = '', shown = 0;
+    for (var i = 0; i < FIGURES.length; i++) {
+      var f = FIGURES[i];
+      if (filter !== 'all' && f.v !== filter) continue;
+      shown++;
+      var L = VLBL[f.v];
+      h += '<article class="fc ' + (f.v === 'never' ? 'never' : '') + '">' +
+        '<div class="sh"><img src="' + BASE + f.src + '" alt="' + S.esc(S.t(f, 'title')) + '" loading="lazy"></div>' +
+        '<div class="bd"><div class="tags">' +
+          '<span class="pill ' + L.cls + '">' + S.esc(S.p(L)) + '</span>' +
+          (f.slide ? '<span class="pill pill-line">' + (S.lang === 'zh' ? '第 ' : 'slide ') + f.slide + (S.lang === 'zh' ? ' 張' : '') + '</span>' : '') +
+        '</div>' +
+        '<h3>' + S.esc(S.t(f, 'title')) + '</h3>' +
+        '<p class="sees">' + S.esc(S.t(f, 'sees')) + '</p>' +
+        '<p class="cap">' + S.esc(S.t(f, 'cap')) + '</p>' +
+        (S.t(f, 'note') ? '<p class="cap" style="color:var(--amber)"><b>' +
+            (S.lang === 'zh' ? '注意：' : 'Note: ') + '</b>' + S.esc(S.t(f, 'note')) + '</p>' : '') +
+        '<div class="foot">' +
+          '<a class="btn btn-ghost btn-sm" href="' + BASE + f.src + '" target="_blank" rel="noopener" ' +
+            'data-en="Open the file" data-zh="開啟原始檔"></a>' +
+          S.srcLink(f.src_page) +
+        '</div></div></article>';
+    }
+    document.getElementById('lib').innerHTML = h;
+    document.getElementById('empty').hidden = shown > 0;
+  }
+
+  function drawLede() {
+    var n = FIGURES.length, u = count('use'), b = count('backup'),
+        m = count('maybe'), x = count('never');
+    document.getElementById('lede').textContent = S.lang === 'zh'
+      ? '來自凍結 wiki 的 ' + n + ' 張候選圖。' + u + ' 張在正式投影片上，' + b +
+        ' 張在備用投影片裡，' + m + ' 張輸在時間、不是輸在品質，' + x +
+        ' 張的代價高於它們帶來的收穫。理由才是有用的部分：那就是這張圖放上去時，評審腦中會想的事。'
+      : n + ' candidate figures from the frozen wiki. ' + u + ' are on a slide, ' + b +
+        ' are in the backup deck, ' + m + ' lost on time rather than on quality, and ' + x +
+        ' would cost more than they earn. The reasons are the useful part: they are what a judge thinks when the figure goes up.';
+  }
+
+  function draw() { drawFilters(); drawLib(); drawLede(); S.applyStatic(document.body); }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    draw();
+    document.getElementById('filters').addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-g]');
+      if (!b) return;
+      filter = b.getAttribute('data-g');
+      draw();
+    });
+  });
+  S.onLang(draw);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backup &amp; Q&amp;A · ReLEAF Opening Five</title>
+<meta name="description" content="Twenty backup slides, numbered so anyone can call for one, plus a map from the questions judges will ask to the slide that answers them.">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 20c0-8 5.5-14.5 16-15.5C19.5 14 14 20 4 20Z' fill='%2323684a'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="hero wrap">
+  <p class="eyebrow" data-en="Backup slides and the question map" data-zh="備用投影片與問題對照表"></p>
+  <h1 data-en="Never shown unless asked for." data-zh="除非被問到，否則絕不展示。"></h1>
+  <p class="lede" style="max-width:62ch;margin-top:1rem"
+     data-en="Put these after slide 6 in the same file, keep the numbering, and learn the numbers by heart. The point of a numbered backup deck is that whoever is answering can say &ldquo;slide nineteen&rdquo; and whoever has the laptop gets there in one jump, without scrolling past four slides of something else."
+     data-zh="把這些放在第 6 張之後、同一個檔案裡，保留編號，並且把頁碼背起來。有編號的備用投影片的意義在於：回答的人可以說「第十九張」，拿筆電的人一次就跳到那裡，不必捲過另外四張無關的投影片。"></p>
+</header>
+
+<section class="wrap narrow" style="padding-top:1rem">
+  <div class="sec-head">
+    <h2 data-en="The two worth offering unprompted" data-zh="值得主動提出的兩張"></h2>
+    <p data-en="The brief invites progress since the Wiki Freeze. These two are the strongest results the team has that a judge cannot find on the wiki at all, which makes them worth more here than anything already published."
+       data-zh="說明裡歡迎分享 Wiki 凍結之後的進展。這兩張是隊伍最強、但評審在 wiki 上完全找不到的結果，所以它們在這裡的價值高於任何已經發表的內容。"></p>
+  </div>
+  <div id="extra-top"></div>
+</section>
+
+<section class="wrap narrow">
+  <div class="sec-head">
+    <h2 data-en="Figure backups, 11 to 26" data-zh="圖表備用，第 11 到 26 張"></h2>
+    <p data-en="One figure each, full bleed, one line of legend, the number large in the corner."
+       data-zh="每張一張圖、滿版、一行圖說、頁碼放大在角落。"></p>
+  </div>
+  <div id="figbk"></div>
+</section>
+
+<section class="wrap narrow">
+  <div class="sec-head">
+    <h2 data-en="Type-only backups, 32 and 33" data-zh="純文字備用，第 32 與 33 張"></h2>
+  </div>
+  <div id="extra-rest"></div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head">
+    <h2 data-en="From question to slide" data-zh="從問題到投影片"></h2>
+    <p data-en="Fifteen questions this project invites, where each one goes, and the first sentence of the answer. For the other three hundred, use the Judging Trainer."
+       data-zh="這個專題會招來的十五個問題、各自該翻到哪裡，以及回答的第一句話。其餘三百題請用評審訓練網站。"></p>
+  </div>
+  <div style="overflow-x:auto">
+    <table class="qmap">
+      <thead><tr>
+        <th data-en="Question" data-zh="問題"></th>
+        <th data-en="Go to" data-zh="翻到"></th>
+        <th data-en="Who" data-zh="誰答"></th>
+        <th data-en="First sentence" data-zh="回答的第一句"></th>
+      </tr></thead>
+      <tbody id="qmap"></tbody>
+    </table>
+  </div>
+  <p class="note note-a" style="margin-top:1.5rem"
+     data-en="The twenty minutes after the deck have their own site: seven seats, a mock room with four judges, 318 project questions and the full honest list."
+     data-zh="投影片之後那二十分鐘有自己的網站：七個麥克風位置、四位評審的模擬會場、318 道專題問題，以及完整的誠實清單。"></p>
+  <div class="btn-row" style="margin-top:1rem">
+    <a class="btn btn-ghost" href="https://timmy97-tw.github.io/releaf-judging-qa/" target="_blank" rel="noopener"
+       data-en="Open the Judging Trainer ↗" data-zh="打開評審訓練網站 ↗"></a>
+  </div>
+</section>
+
+<script src="assets/js/site.js"></script>
+<script src="data/figures.js"></script>
+<script src="data/backup.js"></script>
+<script>
+(function () {
+  var S = window.Site;
+  var BASE = 'https://static.igem.wiki/teams/6072/wiki/';
+
+  function extraCard(x) {
+    return '<div class="bk"><div><div class="bk-n">' + x.n + '</div></div><div>' +
+      '<h3>' + S.esc(S.t(x, 'title')) + '</h3>' +
+      '<p class="when">' + S.esc(S.t(x, 'when')) + '</p>' +
+      '<p class="body">' + S.esc(S.t(x, 'body')) + '</p>' +
+      '<p class="body" style="border-left:3px solid var(--accent);padding-left:.9rem;color:var(--ink)">' +
+        S.t(x, 'say') + '</p>' +
+      '<p class="body" style="color:var(--amber)"><b>' + (S.lang === 'zh' ? '限制：' : 'Limit: ') + '</b>' +
+        S.esc(S.t(x, 'limit')) + '</p>' +
+      '</div></div>';
+  }
+
+  function draw() {
+    var h, i;
+
+    h = '';
+    for (i = 0; i < EXTRA.length; i++) if (EXTRA[i].n <= 31) h += extraCard(EXTRA[i]);
+    document.getElementById('extra-top').innerHTML = h;
+
+    h = '';
+    for (i = 0; i < EXTRA.length; i++) if (EXTRA[i].n > 31) h += extraCard(EXTRA[i]);
+    document.getElementById('extra-rest').innerHTML = h;
+
+    var bk = [];
+    for (i = 0; i < FIGURES.length; i++) if (FIGURES[i].v === 'backup') bk.push(FIGURES[i]);
+    bk.sort(function (a, b) { return a.slide - b.slide; });
+    h = '';
+    for (i = 0; i < bk.length; i++) {
+      var f = bk[i];
+      h += '<div class="bk"><div><div class="bk-n">' + f.slide + '</div></div><div>' +
+        '<img class="thumb" src="' + BASE + f.src + '" alt="" loading="lazy">' +
+        '<h3>' + S.esc(S.t(f, 'title')) + '</h3>' +
+        '<p class="body">' + S.esc(S.t(f, 'sees')) + '</p>' +
+        '<p class="body" style="color:var(--muted)">' + S.esc(S.t(f, 'cap')) + '</p>' +
+        (S.t(f, 'note') ? '<p class="body" style="color:var(--amber)"><b>' +
+          (S.lang === 'zh' ? '注意：' : 'Note: ') + '</b>' + S.esc(S.t(f, 'note')) + '</p>' : '') +
+        '<div class="foot">' + S.srcLink(f.src_page) + '</div>' +
+        '</div></div>';
+    }
+    document.getElementById('figbk').innerHTML = h;
+
+    h = '';
+    for (i = 0; i < QMAP.length; i++) {
+      var q = QMAP[i];
+      h += '<tr><td>' + S.esc(S.t(q, 'q')) + '</td>' +
+        '<td class="to">' + S.esc(q.to) + '</td>' +
+        '<td>' + S.esc(q.who) + '</td>' +
+        '<td style="color:var(--muted)">' + S.esc(S.t(q, 'a')) + '</td></tr>';
+    }
+    document.getElementById('qmap').innerHTML = h;
+
+    S.applyStatic(document.body);
+  }
+
+  S.onLang(draw);
+  document.addEventListener('DOMContentLoaded', draw);
+})();
+</script>
+</body>
+</html>
