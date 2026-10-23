@@ -18,7 +18,8 @@
 </header>
 
 <section class="wrap" style="padding-top:1rem">
-  <div class="chips" id="filters" style="margin-bottom:1.5rem"></div>
+  <div class="chips" id="filters" style="margin-bottom:.6rem"></div>
+  <div class="chips" id="groups" style="margin-bottom:1.5rem"></div>
   <div class="figs" id="lib"></div>
   <p class="note" id="empty" hidden
      data-en="Nothing in this group." data-zh="這個分類裡沒有項目。"></p>
@@ -53,7 +54,7 @@
 (function () {
   var S = window.Site;
   var BASE = 'https://static.igem.wiki/teams/6072/wiki/';
-  var filter = 'all';
+  var filter = 'all', group = 'all';
 
   var GROUPS = [
     { id: 'all',    en: 'All',            zh: '全部' },
@@ -69,28 +70,56 @@
     never:  { en: 'Do not use',   zh: '不要使用',     cls: 'pill-r' }
   };
 
-  function count(id) {
-    if (id === 'all') return FIGURES.length;
+  var GROUPS2 = [
+    { id: 'all',        en: 'Every territory',     zh: '全部領域' },
+    { id: 'protein',    en: 'Protein and assays',  zh: '蛋白與檢測' },
+    { id: 'instrument', en: 'The instrument',      zh: '儀器' },
+    { id: 'rig',        en: 'The rig',             zh: '反應器' },
+    { id: 'plant',      en: 'Plants',              zh: '植物' },
+    { id: 'model',      en: 'Models and software', zh: '模型與軟體' },
+    { id: 'practices',  en: 'Practices and law',   zh: '人文實踐與法規' }
+  ];
+
+  function matches(f) {
+    return (filter === 'all' || f.v === filter) && (group === 'all' || f.group === group);
+  }
+  /* counts are shown against the other axis's current selection, so a chip
+     never promises rows that the pair of filters will not return */
+  function count(id, axis) {
     var n = 0;
-    for (var i = 0; i < FIGURES.length; i++) if (FIGURES[i].v === id) n++;
+    for (var i = 0; i < FIGURES.length; i++) {
+      var f = FIGURES[i];
+      if (axis === 'v') {
+        if ((id === 'all' || f.v === id) && (group === 'all' || f.group === group)) n++;
+      } else {
+        if ((id === 'all' || f.group === id) && (filter === 'all' || f.v === filter)) n++;
+      }
+    }
     return n;
   }
 
   function drawFilters() {
-    var h = '';
-    for (var i = 0; i < GROUPS.length; i++) {
-      var g = GROUPS[i];
+    var h = '', i, g;
+    for (i = 0; i < GROUPS.length; i++) {
+      g = GROUPS[i];
       h += '<button class="chip" data-g="' + g.id + '" aria-pressed="' + (filter === g.id) + '">' +
-        S.esc(S.p(g)) + '<span class="c">' + count(g.id) + '</span></button>';
+        S.esc(S.p(g)) + '<span class="c">' + count(g.id, 'v') + '</span></button>';
     }
     document.getElementById('filters').innerHTML = h;
+    h = '';
+    for (i = 0; i < GROUPS2.length; i++) {
+      g = GROUPS2[i];
+      h += '<button class="chip" data-t="' + g.id + '" aria-pressed="' + (group === g.id) + '">' +
+        S.esc(S.p(g)) + '<span class="c">' + count(g.id, 'g') + '</span></button>';
+    }
+    document.getElementById('groups').innerHTML = h;
   }
 
   function drawLib() {
     var h = '', shown = 0;
     for (var i = 0; i < FIGURES.length; i++) {
       var f = FIGURES[i];
-      if (filter !== 'all' && f.v !== filter) continue;
+      if (!matches(f)) continue;
       shown++;
       var L = VLBL[f.v];
       h += '<article class="fc ' + (f.v === 'never' ? 'never' : '') + '">' +
@@ -115,8 +144,12 @@
   }
 
   function drawLede() {
-    var n = FIGURES.length, u = count('use'), b = count('backup'),
-        m = count('maybe'), x = count('never');
+    var n = FIGURES.length, u = 0, b = 0, m = 0, x = 0;
+    for (var k = 0; k < FIGURES.length; k++) {
+      var v = FIGURES[k].v;
+      if (v === 'use') u++; else if (v === 'backup') b++;
+      else if (v === 'maybe') m++; else x++;
+    }
     document.getElementById('lede').textContent = S.lang === 'zh'
       ? '來自凍結 wiki 的 ' + n + ' 張候選圖。' + u + ' 張在正式投影片上，' + b +
         ' 張在備用投影片裡，' + m + ' 張輸在時間、不是輸在品質，' + x +
@@ -134,6 +167,12 @@
       var b = e.target.closest('button[data-g]');
       if (!b) return;
       filter = b.getAttribute('data-g');
+      draw();
+    });
+    document.getElementById('groups').addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-t]');
+      if (!b) return;
+      group = b.getAttribute('data-t');
       draw();
     });
   });

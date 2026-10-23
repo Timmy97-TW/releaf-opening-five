@@ -30,16 +30,16 @@
 
 <section class="wrap narrow">
   <div class="sec-head">
-    <h2 data-en="Figure backups, 11 to 26" data-zh="圖表備用，第 11 到 26 張"></h2>
-    <p data-en="One figure each, full bleed, one line of legend, the number large in the corner."
-       data-zh="每張一張圖、滿版、一行圖說、頁碼放大在角落。"></p>
+    <h2 data-en="Figure backups, 11 to 59" data-zh="圖表備用，第 11 到 59 張"></h2>
+    <p data-en="One figure each, full bleed, one line of legend, the number large in the corner. Numbered by territory: 11 to 19 protein and assays, 20 to 29 the instrument, 30 to 39 the rig, 40 to 45 plants, 46 to 52 models and software, 53 to 58 practices, business and law, and 59 the light switch, numbered apart so it is never reached by accident."
+       data-zh="每張一張圖、滿版、一行圖說、頁碼放大在角落。依領域編號：11 到 19 蛋白與檢測、20 到 29 儀器、30 到 39 反應器、40 到 45 植物、46 到 52 模型與軟體、53 到 58 人文實踐與商業法規，以及第 59 張光開關，刻意編在最後以免翻頁時誤入。"></p>
   </div>
   <div id="figbk"></div>
 </section>
 
 <section class="wrap narrow">
   <div class="sec-head">
-    <h2 data-en="Type-only backups, 32 and 33" data-zh="純文字備用，第 32 與 33 張"></h2>
+    <h2 data-en="Type-only backups, 62 to 67" data-zh="純文字備用，第 62 到 67 張"></h2>
   </div>
   <div id="extra-rest"></div>
 </section>
@@ -47,8 +47,8 @@
 <section class="wrap">
   <div class="sec-head">
     <h2 data-en="From question to slide" data-zh="從問題到投影片"></h2>
-    <p data-en="Fifteen questions this project invites, where each one goes, and the first sentence of the answer. For the other three hundred, use the Judging Trainer."
-       data-zh="這個專題會招來的十五個問題、各自該翻到哪裡，以及回答的第一句話。其餘三百題請用評審訓練網站。"></p>
+    <p data-en="Fifteen questions this project invites, where each one goes, and the first sentence of the answer. Learn the numbers in this column: being able to say &ldquo;fifty-nine&rdquo; and have it on the screen in one keypress is worth more than any answer you could improvise. For the other three hundred questions, use the Judging Trainer."
+       data-zh="這個專題會招來的十五個問題、各自該翻到哪裡，以及回答的第一句話。請把這一欄的號碼背起來：能夠說出「五十九」並且一個按鍵就讓它出現在螢幕上，比任何你臨場想出來的回答都有價值。其餘三百題請用評審訓練網站。"></p>
   </div>
   <div style="overflow-x:auto">
     <table class="qmap">
@@ -94,11 +94,11 @@
     var h, i;
 
     h = '';
-    for (i = 0; i < EXTRA.length; i++) if (EXTRA[i].n <= 31) h += extraCard(EXTRA[i]);
+    for (i = 0; i < EXTRA.length; i++) if (EXTRA[i].n <= 61) h += extraCard(EXTRA[i]);
     document.getElementById('extra-top').innerHTML = h;
 
     h = '';
-    for (i = 0; i < EXTRA.length; i++) if (EXTRA[i].n > 31) h += extraCard(EXTRA[i]);
+    for (i = 0; i < EXTRA.length; i++) if (EXTRA[i].n > 61) h += extraCard(EXTRA[i]);
     document.getElementById('extra-rest').innerHTML = h;
 
     var bk = [];

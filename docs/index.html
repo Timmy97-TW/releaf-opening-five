@@ -84,6 +84,15 @@
 
 <section class="wrap">
   <div class="sec-head">
+    <h2 data-en="Six techniques that do the work" data-zh="撐起這份投影片的六個技巧"></h2>
+    <p data-en="None of these is decoration. Each one is a decision about where a judge's attention goes, and each is worth keeping if you rebuild the deck somewhere else."
+       data-zh="這裡沒有一項是裝飾。每一項都是在決定評審的注意力往哪裡去，而且如果你們在別的工具重做這份投影片，每一項都值得保留。"></p>
+  </div>
+  <div class="rules" id="techniques"></div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head">
     <h2 data-en="The six layouts" data-zh="六種版面"></h2>
     <p data-en="So you can rebuild this in Keynote, PowerPoint or Slides without losing the argument each layout was chosen to carry."
        data-zh="這樣你們在 Keynote、PowerPoint 或 Google Slides 重做時，不會丟掉每個版面原本要承載的論證。"></p>
@@ -176,6 +185,13 @@
       h += '<div class="rule"><h3>' + S.esc(S.t(r, 'head')) + '</h3><p>' + S.esc(S.t(r, 'body')) + '</p></div>';
     }
     document.getElementById('rules').innerHTML = h;
+
+    h = '';
+    for (i = 0; i < CONTENT.techniques.length; i++) {
+      var tq = CONTENT.techniques[i];
+      h += '<div class="rule"><h3>' + S.esc(S.t(tq, 'head')) + '</h3><p>' + S.esc(S.t(tq, 'body')) + '</p></div>';
+    }
+    document.getElementById('techniques').innerHTML = h;
 
     h = '';
     for (i = 0; i < CONTENT.layouts.length; i++) {

@@ -1,17 +1,17 @@
 /* Backup slides that are not a wiki figure, and the question-to-slide map.
  *
- * Numbered from 30 so they never collide with the figure-backed backups in
- * figures.js, which keep the slide numbers 11 to 26. Build these four as plain
- * type-only slides: a heading, the numbers, and the sentence to say.
+ * Numbered from 60 so they never collide with the figure-backed backups in
+ * figures.js, which hold 11 to 59. Build these as plain type-only slides: a
+ * heading, the numbers, and the sentence to say. No figure, no decoration.
  *
- * Slides 30 and 31 are the two strongest things the team has that a judge
+ * Slides 60 and 61 are the two strongest things the team has that a judge
  * cannot find on the wiki. In a session whose brief invites "progress since the
  * Wiki Freeze", off-wiki work is worth more than anything already published,
  * so these are the first two to offer if a gap opens. */
 var EXTRA = [
 
 {
-  n: 30,
+  n: 60,
   title_en: 'ACC is itself chromogenic, so the standard assay underreads by about a third',
   title_zh: 'ACC 本身就會顯色，所以標準分析法會低估約三分之一',
   when_en: 'Offer this if any judge asks about assay development, measurement contribution, or what another team could reuse. It is the single most transferable result the team produced and it is not on the wiki.',
@@ -24,7 +24,7 @@ var EXTRA = [
   limit_zh: '只有兩個可用的 ACC 濃度、單一盤、n 未記錄。請在同一口氣裡講出來，並且說兩個獨立估計值彼此吻合。'
 },
 {
-  n: 31,
+  n: 61,
   title_en: 'Eleven algorithms, eight predictions, five of them wrong',
   title_zh: '十一個演算法、八項預測，其中五項錯了',
   when_en: 'Offer this if a judge asks how you chose your signal processing, or what rigour means for a student-built instrument. It is the argument behind slide 4, and it is stronger than slide 4 if the judge is a measurement judge.',
@@ -37,7 +37,7 @@ var EXTRA = [
   limit_zh: '這是儀器驗證，不是生物學。不要讓它漂移成關於細胞數的主張。'
 },
 {
-  n: 32,
+  n: 62,
   title_en: 'The published codon rule failed on one gene in four, so we folded 50,000 variants instead',
   title_zh: '已發表的密碼子規則在四個基因裡有一個失敗，所以我們改折疊五萬個變體',
   when_en: 'Offer this for a question about the dry lab, design rationale, or "did you test the method you used?". Not on the wiki as a control, only as the resulting tables.',
@@ -50,7 +50,7 @@ var EXTRA = [
   limit_zh: '全部是電腦模擬。濕實驗結果並不明確：密碼子最佳化的 ACCD 低於它自己的野生型。'
 },
 {
-  n: 33,
+  n: 63,
   title_en: 'How WB800 was actually transformed',
   title_zh: 'WB800 究竟是怎麼轉形成功的',
   when_en: 'Offer this for a cloning or reproducibility question, especially "how did you get a 10 kb construct into Bacillus?". The protocol survives on Engineering but was cut from Measurement, where a reader would look for it.',
@@ -63,7 +63,59 @@ var EXTRA = [
   limit_zh: '塗在普通 LB 上的菌落數不是轉形結果。請用膠圖當主打：二十三個轉形株全部帶有正確片段。'
 }
 
-];
+,
+{
+  n: 64,
+  title_en: 'Five stages, and which of them we can actually sign for',
+  title_zh: '五個階段，以及我們真正敢簽名的是哪幾個',
+  when_en: 'Offer this when a judge asks how complete the system is, or pushes on whether it works end to end. It converts a vague question into a table you control.',
+  when_zh: '當評審問這個系統完成到什麼程度、或追問它到底能不能端到端運作時，提出這一張。它把一個模糊的問題變成一張由你掌握的表。',
+  body_en: 'Detect: a leaf sensor and an air sensor, bench-tested only, reading 1.2 to 1.9 °C warm with a site-dependent offset, and a wetness channel that has never been wetted. Forecast: three models scored on recorded runs, one of them registered before the data existed. Produce: three protectants secreted, active enzyme recovered cell-free for 72 h. Contain: no colonies from the permeate across two platings, no log reduction measured. Monitor: a pre-registered instrument tested out of sample, calibrated against a commercial reference on two independent mass standards. Protect: one hydroponic run against a strain-matched control.',
+  body_zh: '偵測：一支葉片感測器與一支空氣感測器，只在桌面測試過，讀值偏高 1.2 至 1.9 °C 且偏移量因場地而異，而濕度通道從未被弄濕。預報：三個模型在已錄製的運轉上評分，其中一個在資料存在之前就登錄。生產：三種保護蛋白都有分泌，並在無細胞條件下回收到有活性的酵素達 72 小時。圍阻：兩次塗盤，透過液都沒有菌落，但未測對數去除率。監測：一台事先登錄規格的儀器，做過樣本外驗證，並以兩種獨立質量標準對照商用參考儀器校正。保護：一次水耕試驗，對照同株但不產蛋白的培養液。',
+  say_en: '&ldquo;Six stages. Four of them we can show you working tonight. Detect is bench-tested only and its sensor still needs a correction. And the joint between forecast and produce has never been closed, because no forecast has yet driven a light.&rdquo;',
+  say_zh: '「六個階段。其中四個我們今天就能展示它在運作。偵測只在桌面測試過，而且那支感測器還需要一個修正值。至於預報與生產之間那個接點從來沒有接起來，因為還沒有任何一次預報真的驅動過光源。」',
+  limit_en: 'Do not claim the chain is complete. Two joints are open and both are findable by any judge who reads the wiki.',
+  limit_zh: '不要宣稱這條鏈是完整的。有兩個接點還開著，而任何讀過 wiki 的評審都找得到。'
+},
+{
+  n: 65,
+  title_en: 'What another team could pick up and use in four working days',
+  title_zh: '另一支隊伍四個工作天就能拿去用的東西',
+  when_en: 'Offer this for a contribution question, or whenever a judge asks what is reusable. It is the clearest answer the team has and it costs twenty seconds.',
+  when_zh: '面對貢獻類的問題，或只要評審問「有什麼是可以被別人沿用的」，就提出這一張。這是團隊最清楚的回答，而且只要二十秒。',
+  body_en: 'Three things, all published. One, the acceptance-gating protocol for an optical density channel: a burst of sixteen, median plus or minus three MAD, a spread gate at 0.03 OD and a jump gate at the greater of 0.05 OD or five per cent, with the raw CSVs, both bubble tests, the eleven-algorithm replay script and the pre-registration in the repository. It runs in four working days on any photometer that can be made to log its raw samples. Two, the ACC chromogenicity correction, which is backup 60. Three, the assembly guides: a classmate outside the team built the simplified photometer from ours in two days.',
+  body_zh: '三件事，而且都已公開。第一，光密度通道的接受閘流程：一次取十六個樣本、取中位數正負三倍 MAD、離散度閘設在 0.03 OD、跳變閘設在 0.05 OD 與百分之五取大者，並且把原始 CSV、兩次氣泡測試、十一個演算法的重播腳本與事前登錄都放進版本庫。任何能記錄原始取樣的光度計，四個工作天就能跑完這套。第二，ACC 顯色性的修正，也就是備用第 60 張。第三，組裝手冊：一位隊外同學照我們的手冊在兩天內做出了簡化版光度計。',
+  say_en: '&ldquo;The gating protocol is the piece we would most like another team to take. It is four working days on any photometer that can log its raw samples, and everything needed to repeat it is in the repository, including the predictions of ours that failed.&rdquo;',
+  say_zh: '「接受閘流程是我們最希望別的隊伍拿去用的那一塊。任何能記錄原始取樣的光度計，四個工作天就能跑完，而重現它所需要的一切都在版本庫裡，包括我們自己失敗的那些預測。」',
+  limit_en: 'The hardware has no licence declared anywhere. Check that before the session, or say plainly that it is being fixed.',
+  limit_zh: '硬體在任何地方都沒有宣告授權條款。會談前請確認，否則就直說這件事正在補。'
+},
+{
+  n: 66,
+  title_en: 'Where this product would sit in Taiwanese law, and where it would not',
+  title_zh: '這個產品在台灣法規裡會落在哪裡，又不會落在哪裡',
+  when_en: 'Offer this for a regulation, safety or market question. Three sentences, then stop: the strength here is restraint, not detail.',
+  when_zh: '面對法規、安全或市場的問題時提出。講三句話就停：這一段的力量在於克制，不在細節。',
+  body_en: 'The cell-free permeate is aimed at the plant-biostimulant route under Taiwan\'s Fertilizer Management Act, administered by the Agriculture and Food Agency, and the review itself takes about thirty days once a file is complete. Any claim about controlling a pathogen would move the product to the pesticide framework under APHIA instead, which is why the claims are limited to abiotic stress. The Organic Agriculture Promotion Act excludes any product of a genetically modified organism whatever the containment, so certified organic farming, about 3.7% of cultivated land, is likely closed to us.',
+  body_zh: '無細胞透過液瞄準的是《肥料管理法》下的植物生長輔助劑路徑，主管機關為農糧署，而檔案備齊後審查本身約需三十天。任何關於防治病原的宣稱都會讓產品改落入防檢署的農藥架構，這就是為什麼我們的宣稱僅限於非生物性逆境。《有機農業促進法》把任何基因改造生物的產物排除在外，無論圍阻做得多好，所以有機認證農業、大約 3.7% 的耕地，對我們很可能是關閉的。',
+  say_en: '&ldquo;We are aiming at the biostimulant route rather than the pesticide route, which is why we only claim abiotic stress. The most important thing we learned is that a potential pathway is not an approval, and we will not describe the system as certified for contained use until a regulator has said so.&rdquo;',
+  say_zh: '「我們瞄準的是生物刺激劑路徑、而不是農藥路徑，這就是為什麼我們只宣稱非生物性逆境。我們學到最重要的一件事是：一條可能的路徑不等於核准，而在主管機關正式表態之前，我們不會把這個系統描述為已取得封閉使用的認證。」',
+  limit_en: 'Our own review did not find a Taiwan contained-use GMO framework that resolves this case, and we say so. Do not invent one in the room.',
+  limit_zh: '我們自己的檢索並沒有找到能解決這個情況的台灣封閉使用基改框架，而我們也照實寫出來。不要在現場臨時發明一個。'
+},
+{
+  n: 67,
+  title_en: 'What next year starts with',
+  title_zh: '明年從哪裡開始',
+  when_en: 'Offer this if the session is running warm and a judge asks about future work, or use it to close if the panel gives you the last word. Four items, ranked, each tied to a specific gap you have already named.',
+  when_zh: '如果會談氣氛熱絡、評審問到未來工作，就提出這一張；或者在評審把最後發言權給你們時用它收尾。四件事，有排序，每一件都對應一個你們已經講過的具體缺口。',
+  body_en: 'One: spray a batch that has been assayed, and photograph the plant it went onto. It closes the weakest joint in the story and costs one assay plate and one tray. Two: run a real sensor stream through the model to a real induction decision, even with a person relaying it, logged. That turns "designed, not yet connected" into a documented closed loop. Three: repeat the hydroponic run with the WB800 control so the only strain-matched plant result has a replicate. Four: quantify the blots against a loading control and repeat the light assays with biological replicates, which is the only route to a light claim we could defend.',
+  body_zh: '第一：噴一批已經測過活性的材料，並把它噴上的那株植物拍下來。這會補上整個故事最弱的接點，而成本是一盤分析加一盤植物。第二：讓一段真實的感測資料流通過模型，一路走到一個真實的誘導決定，即使中間由人轉手也可以，但要記錄下來。這會把「已設計、尚未連接」變成一個被記錄下來的閉環。第三：帶著 WB800 對照重做一次水耕試驗，讓唯一帶同株對照的植物結果有一個重複。第四：把墨點對載量對照定量，並用生物重複重做光反應分析，那是唯一能讓我們守得住光控制主張的路。',
+  say_en: '&ldquo;The first thing we would do is spray a batch we have assayed and photograph the plant it went onto. That one experiment closes the weakest joint we have, and it needs one assay plate and one tray.&rdquo;',
+  say_zh: '「我們第一件會做的事，是噴一批已經測過活性的材料，然後把它噴上的那株植物拍下來。那一個實驗就能補上我們最弱的接點，而它只需要一盤分析和一盤植物。」',
+  limit_en: 'Say what you would do, not what you hope. A future-plans answer with no first step in it reads as having nothing to show.',
+  limit_zh: '講你們會做什麼，不要講你們希望什麼。一個沒有第一步的未來計畫，聽起來就是「沒有東西可以展示」。'
+}];
 
 /* Which question goes to which slide, and who answers it.
  * Built from the questions the wiki's own open numbers invite. */
@@ -75,7 +127,7 @@ var QMAP = [
     a_zh: '無細胞隔室中的比活性。不要去拿微量盤的數據：無質體對照組落在同一範圍。' },
   { q_en: 'Does the light switch work?',
     q_zh: '光開關有效嗎？',
-    to: '19', who: 'Chloe',
+    to: '59', who: 'Chloe',
     a_en: 'No, not demonstrated. Green is 14 times red at 13 hours and the order inverts by 16. Say both halves and say our own verdict.',
     a_zh: '沒有，尚未被證明。13 小時綠光是紅光的 14 倍，到 16 小時順序反轉。兩半都要講，而且要講出我們自己的結論。' },
   { q_en: 'Is the containment validated?',
@@ -85,7 +137,7 @@ var QMAP = [
     a_zh: '是圍阻的初步證據，不是已驗證的效率。兩盤、無重複、未測對數去除率、偵測極限未記錄。' },
   { q_en: 'How did you choose your signal processing?',
     q_zh: '你們怎麼選訊號處理方法的？',
-    to: '31', who: 'Jacquelyn',
+    to: '61', who: 'Jacquelyn',
     a_en: 'Pre-registered eleven algorithms and eight predictions. Five predictions failed and are published. The estimator matters less than the gate.',
     a_zh: '事先登錄了十一個演算法與八項預測。五項預測失敗，而且都已公開。選哪個估計量的影響小於那道閘。' },
   { q_en: 'Can anyone else build your hardware?',
@@ -95,7 +147,7 @@ var QMAP = [
     a_zh: '三位隊外同學照手冊在兩天內做出了簡化版光度計，並回報三處修正。接著誠實說明授權條款的現況。' },
   { q_en: 'Which human practices input changed your design most?',
     q_zh: '哪一項人文實踐意見對你們的設計改變最大？',
-    to: 'Slide 1, then 22', who: 'Jacquelyn',
+    to: 'Slide 1, then 53', who: 'Jacquelyn',
     a_en: 'April: kill switch to physical containment, from two independent sources within a week. That is why there is a membrane at all. Then Prof. Chang, twice, with a failure in between.',
     a_zh: '四月：從自殺開關改為物理圍阻，一週內有兩個獨立來源。這就是為什麼會有一層膜。接著是張教授，兩次拜訪，中間夾著一個失敗。' },
   { q_en: 'What is the strongest plant evidence?',
@@ -115,7 +167,7 @@ var QMAP = [
     a_zh: '不是。預報從未驅動過光源，而且沒有任何植物試驗能連結到噴灑批次的活性測定。在被問第二次之前就把兩者講出來。' },
   { q_en: 'What does a farmer pay, and when does it pay back?',
     q_zh: '農友要付多少，什麼時候回本？',
-    to: '25', who: 'Jacquelyn',
+    to: '57', who: 'Jacquelyn',
     a_en: 'About US$5550 in year one, about US$90 a year after. Then name the disagreement: our own pages give paybacks that differ by more than an order of magnitude, and the dose has never been tested on a crop.',
     a_zh: '第一年約 5550 美元，之後每年約 90 美元。接著講出那個分歧：我們自己的頁面給出的回收期相差超過一個數量級，而那個劑量從未在作物上測試過。' },
   { q_en: 'Could an organic farm use this?',
@@ -125,7 +177,7 @@ var QMAP = [
     a_zh: '不行。台灣《有機農業促進法》把任何基因改造生物的產物排除在外，無論圍阻做得多好，這讓約 3.7% 的耕地對我們關閉。回答時不要含糊。' },
   { q_en: 'Was the whole construct sequenced?',
     q_zh: '整個構築有定序嗎？',
-    to: '17, 18', who: 'Chloe',
+    to: '18, 19', who: 'Chloe',
     a_en: 'Not end to end. Nine junctions and a double digest at 10,293 bp confirm module order and plasmid length; neither reads the 10 kb between them.',
     a_zh: '沒有端到端定序。九個接點與 10,293 bp 的雙酶切確認了模組順序與質體長度；但兩者都沒有讀中間那 10 kb。' },
   { q_en: 'How many parts did you register?',
@@ -135,7 +187,7 @@ var QMAP = [
     a_zh: '會談前請查 Registry 把這件事確認下來。Wiki 寫 35、其中一個是沒有 BBa 編號的草稿、上傳包算出 33。' },
   { q_en: 'What would another team reuse from your project?',
     q_zh: '別的隊伍可以從你們的專題沿用什麼？',
-    to: '30', who: 'Jacquelyn or Chloe',
+    to: '60', who: 'Jacquelyn or Chloe',
     a_en: 'The ACC chromogenicity correction, and the gating protocol that runs in four working days on any photometer that can log its raw samples.',
     a_zh: 'ACC 顯色性的修正，以及那套接受閘流程：任何能記錄原始取樣的光度計，四個工作日就能跑完。' },
   { q_en: 'What is your biggest weakness?',

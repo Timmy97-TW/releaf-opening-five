@@ -16,8 +16,8 @@
   <p class="eyebrow" data-en="The demo deck" data-zh="示範投影片"></p>
   <h1 data-en="Six slides. Four minutes twenty." data-zh="六張投影片。四分二十秒。"></h1>
   <p class="lede" style="max-width:62ch;margin-top:1rem"
-     data-en="Arrow keys move, Esc opens the overview, T starts the clock, F goes fullscreen. The note under each slide is what to say; the orange line is the trap on that slide. Rehearse with the clock running and the notes covered."
-     data-zh="方向鍵換頁，Esc 開啟總覽，T 開始計時，F 進入全螢幕。每張投影片下方是要說的話；橘色那行是這張的陷阱。練習時請開著計時器、把逐字稿遮住。"></p>
+     data-en="Right arrow advances one beat at a time, so the evidence arrives as you reach it; down arrow jumps a whole slide. Esc opens the overview, T starts the clock, F goes fullscreen. The note under each slide is what to say, the green line is the beat you are on, and the orange line is the trap."
+     data-zh="右方向鍵一次推進一個節拍，讓證據在你講到時才出現；下方向鍵直接跳整張。Esc 開啟總覽，T 開始計時，F 進入全螢幕。每張投影片下方是要說的話，綠色那行是你現在的節拍，橘色那行是陷阱。"></p>
 </header>
 
 <div class="stage" id="stage">
@@ -27,6 +27,7 @@
     <button class="btn btn-ghost btn-sm" id="prev" data-en="← Back" data-zh="← 上一張"></button>
     <button class="btn btn-sm" id="next" data-en="Next →" data-zh="下一張 →"></button>
     <button class="btn btn-ghost btn-sm" id="ovb" data-en="Overview" data-zh="總覽"></button>
+    <span class="fcount" id="fc"></span>
     <span class="spacer"></span>
     <span class="tc" id="tc">0:00 / 4:20</span>
     <button class="btn btn-accent btn-sm" id="run" data-en="Start the clock" data-zh="開始計時"></button>

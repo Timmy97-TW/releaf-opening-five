@@ -26,6 +26,19 @@ who already know the story, and make it easy for them to ask a good question.
 Six slides, **4 minutes 20 of speech**, three speakers, two handovers. The handovers are not inside the slide
 budgets — add about twenty seconds for them, which puts the real total near 4:40 against a five-minute ceiling.
 
+Four techniques do the work, and they are worth keeping if you rebuild this in Keynote:
+
+- **Assertion-evidence.** Every headline is a sentence stating the claim; the slide is the evidence for it.
+  No slide is headed "Results".
+- **Annotation over legends.** A ring on the bar being discussed and a label naming it where it happens, so a
+  judge's eye never travels to a key and back. At most one or two marks in a small panel, and a well-made chart
+  that carries its own legend is left alone.
+- **Crop to the panel that carries the claim.** A three-panel wiki figure shrunk into a quarter of a slide is
+  unreadable from the back of a room. Panel (c) is shown at full size, labelled as panel (c), with the whole
+  figure one keypress away. Selecting a named panel is fair; cropping an axis is not.
+- **Beats.** Right arrow advances one beat so the evidence arrives as the speaker reaches it; down arrow jumps
+  a whole slide. Sixteen beats across six slides.
+
 | # | Slide | Who | Budget |
 |---|---|---|---|
 | 1 | We built it, we ran it, and it is instrumented | Chloe | 0:35 |
@@ -48,10 +61,13 @@ as the *reason the design looks like this*, not as a list of people the team met
    `F` goes fullscreen. A budget rail above the slide, presenter notes below.
 3. **The Script** — word for word in both languages, with a words-per-minute reading for every slide, the
    caveat printed on each slide, and the trap on each slide. Prints as a paper script.
-4. **Figures** — 36 candidate figures with a verdict each: on a slide, in the backup deck, lost on time rather
-   than on quality, or would cost more than it earns. The reasons are the useful part.
-5. **Backup** — twenty numbered backup slides and a map from fifteen likely questions to the slide that
-   answers them, with the first sentence of each answer.
+4. **Figures** — 74 candidate figures with a verdict each: on a slide, in the backup deck, lost on time rather
+   than on quality, or would cost more than it earns. Filter by verdict and by territory. The reasons are the
+   useful part.
+5. **Backup** — 57 numbered backup slides and a map from fifteen likely questions to the slide that answers
+   them, with the first sentence of each answer. Numbered by territory so a number can be called out loud:
+   11-19 protein and assays, 20-29 the instrument, 30-39 the rig, 40-45 plants, 46-52 models and software,
+   53-58 practices, business and law, 59 the light switch, and 60-67 the type-only slides.
 
 ## Where the content comes from
 
@@ -83,9 +99,9 @@ docs/
   assets/css/{base,pages,deck}.css
   assets/js/{site,deck}.js
   data/
-    deck.js      the six slides, their budgets, scripts and caveats
+    deck.js      the six slides: budgets, beats, crops, marks, scripts and caveats
     content.js   site prose, the speaker split, layout specs, the honest list
-    figures.js   the 36-figure library with its verdicts
+    figures.js   the 74-figure library with its verdicts and territories
     backup.js    type-only backup slides and the question map
 ```
 

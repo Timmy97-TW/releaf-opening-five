@@ -1,6 +1,23 @@
-/* The deck: 16:9 slides that scale to the viewport, drawn in the wiki's own
- * type and palette so the five minutes look like the rest of ReLEAF.
- * One claim per slide. Figures carry the argument; words name it. */
+/* The deck.
+ *
+ * A fixed 1280 x 720 canvas scaled to the viewport, so every size inside it is
+ * in px and lands identically on a laptop, a projector and a phone.
+ *
+ * Three things do the design work here, and they are worth keeping if you
+ * rebuild this in Keynote:
+ *   1. ASSERTION-EVIDENCE. Every headline is a full sentence stating the claim,
+ *      and the body of the slide is the evidence for it. No topic headings
+ *      ("Results"), no bullet lists.
+ *   2. ANNOTATION OVER LEGENDS. Marks sit on the figure itself: a ring on the
+ *      thing being discussed, a label naming it where it happens. A judge's eye
+ *      never has to travel to a key and back.
+ *   3. PROGRESSIVE DISCLOSURE. Evidence arrives as the speaker reaches it, so
+ *      nobody reads ahead while they are being talked to.
+ *
+ * Type scale (1280 x 720): 12 eyebrow / 46 claim / 38 claim-sm / 19 lede /
+ * 15 pane head / 44 figure / 12.5 label / 12 caption / 13 caveat.
+ * Grid: 64px side margins, 1152 content width, 24px gutter.
+ */
 
 .stage {
   position: relative;
@@ -9,8 +26,6 @@
   display: flex; flex-direction: column; align-items: center;
 }
 
-/* The slide is a fixed 1280x720 canvas scaled by a CSS variable, so every
-   font size inside it is in px and lands the same way at any screen size. */
 .frame {
   width: 100%; max-width: 1280px;
   aspect-ratio: 16 / 9;
@@ -28,8 +43,8 @@
   font-size: 16px;
 }
 
-/* ── slide chrome inside the canvas ── */
-.sl { position: absolute; inset: 0; padding: 54px 64px 56px; display: flex; flex-direction: column; }
+/* ── slide chrome ── */
+.sl { position: absolute; inset: 0; padding: 56px 64px 54px; display: flex; flex-direction: column; }
 .sl-eye {
   position: absolute; top: 26px; left: 64px; right: 64px;
   display: flex; align-items: center; gap: 10px;
@@ -38,87 +53,161 @@
 }
 .sl-eye .who { color: var(--accent); }
 .sl-eye .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--rule); }
-.sl-eye .pg { margin-left: auto; font-family: var(--font-mono); letter-spacing: .04em; font-weight: 500; }
+.sl-eye .pg { margin-left: auto; font-family: var(--font-mono); letter-spacing: .04em; font-weight: 500; text-transform: none; }
 
 .sl h2 {
-  font-size: 44px; line-height: 1.08; letter-spacing: -.028em; font-weight: 650;
-  color: var(--ink); margin: 0; max-width: 24ch;
+  font-size: 46px; line-height: 1.06; letter-spacing: -.03em; font-weight: 650;
+  color: var(--ink); margin: 0; max-width: 21ch; text-wrap: balance;
 }
-.sl h2.sm { font-size: 36px; max-width: 30ch; }
+.sl h2.sm { font-size: 38px; max-width: 28ch; }
+.sl h2 em { font-style: normal; color: var(--accent); }
 .sl .sub {
-  font-size: 19px; line-height: 1.42; color: var(--ink-2); margin: 14px 0 0; max-width: 62ch;
+  font-size: 19px; line-height: 1.45; color: var(--ink-2); margin: 13px 0 0; max-width: 60ch;
 }
 .sl .foot-note {
-  position: absolute; left: 64px; right: 64px; bottom: 22px;
+  position: absolute; left: 64px; right: 64px; bottom: 20px;
   font-size: 13px; color: var(--faint); line-height: 1.4;
-  display: flex; gap: 10px; align-items: baseline;
+  display: flex; gap: 9px; align-items: baseline;
 }
 .sl .foot-note b { color: var(--amber); font-weight: 600; flex: none; }
 
-html:lang(zh) .sl h2 { font-size: 40px; line-height: 1.22; }
-html:lang(zh) .sl h2.sm { font-size: 33px; }
+html:lang(zh) .sl h2 { font-size: 41px; line-height: 1.2; }
+html:lang(zh) .sl h2.sm { font-size: 34px; }
 html:lang(zh) .sl .sub { font-size: 18px; line-height: 1.62; }
 
 /* ── numbers ── */
-.nums { display: flex; gap: 34px; margin-top: auto; }
-.nums.col { flex-direction: column; gap: 20px; margin-top: 0; }
+.nums { display: flex; gap: 32px; margin-top: auto; }
+.nums.col { flex-direction: column; gap: 19px; margin-top: 0; }
 .num .v {
-  font-size: 40px; font-weight: 650; letter-spacing: -.03em; line-height: 1;
+  font-size: 44px; font-weight: 650; letter-spacing: -.035em; line-height: 1;
   color: var(--accent-deep); font-variant-numeric: tabular-nums;
 }
 .num .v small { font-size: 20px; font-weight: 600; letter-spacing: -.01em; color: var(--accent); }
-.num .l { font-size: 13px; line-height: 1.35; color: var(--muted); margin-top: 7px; max-width: 22ch; }
-.num.sm .v { font-size: 30px; }
+.num .l { font-size: 12.5px; line-height: 1.38; color: var(--muted); margin-top: 8px; max-width: 24ch; }
 
-/* ── figures ── */
-.figwrap { background: var(--paper-3); border: 1px solid var(--rule-soft); border-radius: 12px; overflow: hidden; }
-.figwrap img { display: block; width: 100%; height: 100%; object-fit: contain; background: #fff; }
-.figwrap.cover img { object-fit: cover; }
-.figcap { font-size: 12px; line-height: 1.4; color: var(--faint); margin-top: 8px; }
+/* ── figures ─────────────────────────────────────────────────────────────
+   A figure is a box, an optional crop, and an optional mark layer.
+   Cropping uses a background image, so no natural size is needed: a crop of
+   width w starting at x is background-size 100/w% at background-position
+   x/(1-w)*100%. deck.js writes those values inline. */
+.figwrap { position: relative; display: flex; flex-direction: column; min-height: 0; }
+.shot {
+  position: relative; flex: 1; min-height: 0;
+  background: #fff;
+  border: 1px solid var(--rule-soft); border-radius: 12px; overflow: hidden;
+}
+.shot > img { display: block; width: 100%; height: 100%; object-fit: contain; background: #fff; }
+.shot.cover > img { object-fit: cover; }
+/* a cropped figure sits in a box of its own aspect ratio, centred in the slot,
+   so the slot never crops it a second time */
+.shot.cropped { display: flex; align-items: center; justify-content: center; }
+.cropbox {
+  position: relative; display: block; overflow: hidden;
+  height: 100%; width: auto; max-width: 100%; max-height: 100%;
+  min-width: 0; min-height: 0;
+}
+.cropbox > img { position: absolute; max-width: none; display: block; }
+.figcap { font-size: 12px; line-height: 1.4; color: var(--faint); margin-top: 8px; flex: none; }
 
-/* layout: hero — one line, one wide image.
-   The art band is wider than 16:9, so a cover crop has to lose something.
-   Anchor it low: the bench and the laptop reading are the proof, the ceiling
-   above the whiteboard is not. */
-.ly-hero .art { margin-top: 18px; flex: 1; min-height: 0; display: flex; flex-direction: column; }
-.ly-hero .art .figwrap { flex: 1; min-height: 0; }
-.ly-hero .art .figwrap img { object-position: 50% 72%; }
+/* mark layer: rings, labels and bands in normalized figure coordinates */
+.marks { position: absolute; inset: 0; pointer-events: none; }
+.mk { position: absolute; transform: translate(-50%, -50%); }
+.mk-ring {
+  border: 2.5px solid var(--accent); border-radius: 999px;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.75), inset 0 0 0 3px rgba(255,255,255,.55);
+}
+.mk-ring.warn { border-color: var(--amber); }
+.mk-band {
+  background: rgba(35,104,74,.12); border-left: 2px solid var(--accent);
+  border-right: 2px solid var(--accent); transform: none;
+}
+.mk-band.warn { background: rgba(178,80,0,.12); border-color: var(--amber); }
+.mk-lab {
+  font-size: 13px; font-weight: 650; line-height: 1.25; letter-spacing: -.01em;
+  background: var(--accent); color: #fff; padding: 5px 10px; border-radius: 8px;
+  white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+.mk-lab.warn { background: var(--amber); }
+.mk-lab.quiet { background: #fff; color: var(--ink); border: 1px solid var(--rule); box-shadow: var(--shadow-1); }
+.mk-lab.multi { white-space: normal; max-width: 200px; }
+html:lang(zh) .mk-lab { font-size: 12.5px; }
+.mk-lead { background: var(--accent); transform: none; }
+.mk-lead.warn { background: var(--amber); }
 
-/* layout: split — figure left, rail right */
-.ly-split .body { display: grid; grid-template-columns: 1fr 296px; gap: 32px; margin-top: 20px; flex: 1; min-height: 0; }
-.ly-split .body > div:first-child { display: flex; flex-direction: column; min-height: 0; }
-.ly-split .body > div:first-child .figwrap { flex: 1; min-height: 0; }
-.ly-split .body .num .v { font-size: 34px; }
-.ly-split .body .num .l { font-size: 12.5px; }
-.ly-split .body .nums.col { gap: 16px; }
-
-/* layout: pair — two figures side by side */
-.ly-pair .body { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 20px; flex: 1; min-height: 0; }
-.ly-pair .pane { display: flex; flex-direction: column; min-height: 0; }
-.ly-pair .pane h3 { font-size: 15px; font-weight: 650; color: var(--ink); margin: 0 0 8px; letter-spacing: -.01em; }
-.ly-pair .pane .figwrap { flex: 1; min-height: 0; }
-.ly-pair .mid {
-  position: absolute; left: 50%; top: 58%; transform: translate(-50%,-50%);
-  background: var(--accent); color: #fff; font-size: 13px; font-weight: 650;
-  padding: 5px 12px; border-radius: 999px; white-space: nowrap; z-index: 3;
-  box-shadow: 0 2px 10px rgba(0,0,0,.18);
+/* ── fragments: revealed as the speaker reaches them ── */
+[data-f] { transition: opacity .32s ease, transform .32s ease; }
+[data-f].off { opacity: 0; transform: translateY(6px); }
+@media (prefers-reduced-motion: reduce) {
+  [data-f] { transition: none; }
+  [data-f].off { transform: none; }
 }
 
-/* layout: trio — three evidence panels */
-.ly-trio .body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 22px; flex: 1; min-height: 0; }
+/* ── layout: hero ── */
+.ly-hero .art { margin-top: 18px; flex: 1; min-height: 0; }
+.ly-hero .art .figwrap { height: 100%; }
+.ly-hero .art .shot img { object-position: 50% 72%; }
+
+/* ── layout: evidence — hero figure, number rail, detail strip on the build ── */
+.ly-evidence .body { display: grid; grid-template-columns: 1fr 292px; gap: 30px; margin-top: 18px; flex: 1; min-height: 0; }
+.ly-evidence .body > .main { display: flex; flex-direction: column; min-height: 0; gap: 14px; }
+.ly-evidence .body > .main > .figwrap { flex: 1; min-height: 0; }
+.ly-evidence .strip {
+  flex: none; display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  height: 176px; transition: height .32s ease, opacity .32s ease, transform .32s ease;
+}
+/* collapsed until the beat that reveals it, so the hero figure has the whole
+   height while it is the only thing being talked about */
+.ly-evidence[data-step="0"] .strip { height: 0; }
+.ly-evidence .strip .figwrap { height: 100%; }
+.ly-evidence .strip h4 {
+  font-size: 12px; font-weight: 650; color: var(--ink); margin: 0 0 5px; flex: none;
+}
+.ly-evidence .rail-note {
+  font-size: 12.5px; line-height: 1.4; color: var(--muted);
+  border-top: 1px solid var(--rule-soft); padding-top: 11px; margin: 0;
+}
+
+/* ── layout: pair ── */
+.ly-pair .body { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 18px; flex: 1; min-height: 0; }
+.ly-pair .pane { display: flex; flex-direction: column; min-height: 0; }
+.ly-pair .pane h3 {
+  font-size: 15px; font-weight: 650; color: var(--ink); margin: 0 0 9px;
+  letter-spacing: -.012em; line-height: 1.3; min-height: 2.6em;
+}
+html:lang(zh) .ly-pair .pane h3 { min-height: 3em; }
+.ly-pair .pane .figwrap { flex: 1; min-height: 0; }
+.ly-pair .mid {
+  position: absolute; left: 50%; top: 56%; transform: translate(-50%,-50%);
+  background: var(--ink); color: #fff; font-size: 13px; font-weight: 650;
+  padding: 6px 13px; border-radius: 999px; white-space: nowrap; z-index: 3;
+  box-shadow: 0 2px 12px rgba(0,0,0,.22);
+}
+
+/* ── layout: trio ── */
+.ly-trio .body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 18px; flex: 1; min-height: 0; }
 .ly-trio .pane { display: flex; flex-direction: column; min-height: 0; }
 .ly-trio .pane .figwrap { flex: 1; min-height: 0; }
-/* equal heading height so the numbers below line up across the three panels */
-.ly-trio .pane h3 { font-size: 14px; font-weight: 650; margin: 0 0 7px; letter-spacing: -.01em; min-height: 2.9em; }
+.ly-trio .pane h3 {
+  font-size: 14px; font-weight: 650; margin: 0 0 7px; letter-spacing: -.01em;
+  line-height: 1.3; min-height: 2.9em;
+}
 html:lang(zh) .ly-trio .pane h3 { min-height: 3.4em; }
-.ly-trio .pane .n { font-size: 24px; font-weight: 650; color: var(--accent-deep); letter-spacing: -.02em; margin-top: 8px; font-variant-numeric: tabular-nums; }
+.ly-trio .pane h3 .s {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 17px; height: 17px; border-radius: 50%; background: var(--accent); color: #fff;
+  font-size: 10.5px; margin-right: 6px; vertical-align: 1px;
+}
+.ly-trio .pane .n {
+  font-size: 27px; font-weight: 650; color: var(--accent-deep); letter-spacing: -.028em;
+  margin-top: 9px; font-variant-numeric: tabular-nums; line-height: 1; flex: none;
+}
 .ly-trio .pane .n small { font-size: 14px; font-weight: 600; color: var(--accent); }
-.ly-trio .pane p { font-size: 12.5px; line-height: 1.4; color: var(--muted); margin: 3px 0 0; }
+.ly-trio .pane p { font-size: 12.5px; line-height: 1.4; color: var(--muted); margin: 5px 0 0; flex: none; }
 
-/* layout: ledger — the closing two-column list */
-.ly-ledger .body { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; margin-top: 30px; flex: 0 0 auto; }
+/* ── layout: ledger ── */
+.ly-ledger .body { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; margin-top: 26px; flex: 0 0 auto; }
 .ly-ledger .col h3 {
-  font-size: 13px; font-weight: 650; letter-spacing: .07em; text-transform: uppercase;
+  font-size: 12px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase;
   margin: 0 0 14px; color: var(--muted);
 }
 .ly-ledger .col.done h3 { color: var(--accent); }
@@ -140,13 +229,19 @@ html:lang(zh) .ly-trio .pane h3 { min-height: 3.4em; }
 .ly-ledger ul { margin: 0; padding: 0; }
 html:lang(zh) .ly-ledger li { font-size: 17px; line-height: 1.68; }
 
-/* the closing ask */
+/* the closing ask: the one dark band in an otherwise white deck, so the last
+   thing on the screen is the sentence you want them to answer */
 .ask {
-  margin-top: 34px; background: var(--accent-wash); border-radius: 12px;
-  padding: 18px 22px; font-size: 19px; line-height: 1.4; color: var(--accent-deep); font-weight: 600;
+  margin-top: auto; background: var(--ink); color: #fff; border-radius: 13px;
+  padding: 19px 24px; font-size: 20px; line-height: 1.38; font-weight: 600;
+  letter-spacing: -.015em; display: flex; align-items: center; gap: 14px;
 }
+.ask::before {
+  content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: #4f9c6f;
+}
+html:lang(zh) .ask { font-size: 18.5px; line-height: 1.6; }
 
-/* ── controls under the frame ── */
+/* ── controls ── */
 .deckbar {
   width: 100%; max-width: 1280px;
   display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
@@ -160,8 +255,8 @@ html:lang(zh) .ly-ledger li { font-size: 17px; line-height: 1.68; }
 }
 .deckbar .tc.over { background: var(--red-wash); color: var(--red); border-color: transparent; }
 .deckbar .tc.warn { background: var(--amber-wash); color: var(--amber); border-color: transparent; }
+.deckbar .fcount { font-family: var(--font-mono); font-size: .75rem; color: var(--faint); }
 
-/* the budget rail: one segment per slide, width proportional to its seconds */
 .rail { width: 100%; max-width: 1280px; display: flex; gap: 3px; margin-bottom: .1rem; }
 .rail button {
   min-width: 0; height: 7px; border: 0; padding: 0; cursor: pointer;
@@ -171,7 +266,6 @@ html:lang(zh) .ly-ledger li { font-size: 17px; line-height: 1.68; }
 .rail button[aria-current="true"] { background: var(--accent); }
 .rail button.past { background: var(--accent-wash); }
 
-/* presenter notes */
 .notes {
   width: 100%; max-width: 1280px; background: #fff; border: 1px solid var(--rule-soft);
   border-radius: var(--r); padding: 1.1rem 1.25rem; margin-bottom: 1.25rem;
@@ -184,8 +278,13 @@ html:lang(zh) .ly-ledger li { font-size: 17px; line-height: 1.68; }
 .notes .say em { color: var(--accent-deep); font-style: normal; font-weight: 600; }
 .notes .cav { font-size: .875rem; color: var(--amber); margin: 0; }
 .notes .cav b { font-weight: 600; }
+.notes .beat {
+  font-size: .8125rem; color: var(--muted); margin: .55rem 0 0;
+  border-top: 1px solid var(--rule-soft); padding-top: .55rem;
+}
+.notes .beat b { color: var(--accent); font-weight: 600; }
 
-/* overview grid */
+/* overview */
 .ov { position: fixed; inset: 0; background: rgba(245,245,247,.97); z-index: 90; overflow: auto; padding: 2rem 20px 3rem; }
 .ov .wrap { max-width: 1180px; }
 .ov h2 { margin-bottom: 1.25rem; }
@@ -201,7 +300,6 @@ html:lang(zh) .ly-ledger li { font-size: 17px; line-height: 1.68; }
 .ovc p { font-size: .8125rem; color: var(--muted); margin: 0; }
 .ovc .b { font-size: .75rem; color: var(--accent); font-weight: 600; margin-top: .5rem; }
 
-/* fullscreen: the frame fills the screen, chrome hides */
 .stage:fullscreen { background: #000; padding: 0; justify-content: center; }
 .stage:fullscreen .frame { max-width: none; border-radius: 0; box-shadow: none; width: 100vw; height: 100vh; aspect-ratio: auto; }
 .stage:fullscreen .deckbar, .stage:fullscreen .rail, .stage:fullscreen .notes { display: none; }
